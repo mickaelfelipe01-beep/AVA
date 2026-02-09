@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Área do Aluno • Instituto ALFA</title>
+
+  <!-- Favicon (opcional) -->
+  <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
+
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --bg2:#0b1a12;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:#eaf2ff;
+      --muted:rgba(234,242,255,.72);
+      --brand:#22c55e;
+      --brand2:#fb923c;
+      --danger:#ef4444;
+      --ok:#16a34a;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(900px 500px at 90% 20%, rgba(251,146,60,.18), transparent 55%),
+        linear-gradient(140deg, var(--bg1), var(--bg2));
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 18px 40px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:240px;
+    }
+
+    .logo{
+      width:54px;height:54px;
+      border-radius:16px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo img{width:100%; height:100%; object-fit:cover}
+
+    .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.15;
+    }
+    .title strong{font-size:18px; letter-spacing:.2px}
+    .title span{font-size:13px; color:var(--muted)}
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .search{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius:999px;
+      min-width:280px;
+    }
+    .search input{
+      width:100%;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--text);
+      font-size:14px;
+    }
+    .search input::placeholder{color:rgba(234,242,255,.55)}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+      .actions{justify-content:flex-start}
+      .search{min-width:0; width:100%}
+      header{flex-direction:column; align-items:stretch}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .card .hd{
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .hd h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.25px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+    }
+    .tag.ok{border-color: rgba(22,163,74,.35); background: rgba(22,163,74,.14); color:#bff5cf}
+    .tag.warn{border-color: rgba(251,146,60,.40); background: rgba(251,146,60,.14); color:#ffe2c8}
+
+    .card .bd{
+      padding:14px 18px 18px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      border-radius: var(--radius2);
+    }
+
+    .item .left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .item .name{
+      font-weight:700;
+      font-size:14px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 100%;
+    }
+    .item .meta{
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.25;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      text-decoration:none;
+      font-weight:700;
+      font-size:13px;
+      white-space:nowrap;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      flex:0 0 auto;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.12)}
+    .btn.primary{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.16)}
+    .btn.orange{border-color: rgba(251,146,60,.40); background: rgba(251,146,60,.14)}
+    .btn.ghost{background: rgba(0,0,0,.12)}
+
+    .note{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius: var(--radius2);
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.12);
+      color: var(--muted);
+      font-size:12.5px;
+      line-height:1.35;
+    }
+
+    footer{
+      margin-top:16px;
+      padding:14px 16px;
+      text-align:center;
+      color: rgba(234,242,255,.58);
+      font-size:12px;
+    }
+    .muted{color:var(--muted)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <!-- Troque o src pela sua logo (pode ser link do GitHub Pages ou Drive) -->
+          <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Instituto ALFA">
+        </div>
+        <div class="title">
+          <strong>Área do Aluno • Instituto ALFA</strong>
+          <span>Materiais e atividades do curso em um só lugar</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="pill">📌 Dica: salve este link nos favoritos</div>
+        <div class="search" title="Pesquisar por aula ou atividade">
+          🔎
+          <input id="q" type="search" placeholder="Pesquisar: ex. 'Windows', 'Aula 03', 'Internet'..." />
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- ATIVIDADES -->
+      <section class="card" id="card-atividades">
+        <div class="hd">
+          <h2>📝 Atividades da Semana</h2>
+          <span class="tag ok">Atualizado</span>
+        </div>
+        <div class="bd">
+          <div class="list" id="atividades">
+
+            <!-- EXEMPLOS (troque pelos seus links reais) -->
+            <div class="item" data-tags="atividade semana windows configurações">
+              <div class="left">
+                <div class="name">Atividade — Configurações do Windows</div>
+                <div class="meta">Baseada na Aula 03 • Prazo: até sexta-feira</div>
+              </div>
+              <a class="btn primary" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
+                Abrir atividade ↗
+              </a>
+            </div>
+
+            <div class="item" data-tags="atividade internet navegador segurança">
+              <div class="left">
+                <div class="name">Atividade — Internet e Navegadores</div>
+                <div class="meta">Exercícios de fixação • Prazo: até sexta-feira</div>
+              </div>
+              <a class="btn orange" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
+                Abrir atividade ↗
+              </a>
+            </div>
+
+          </div>
+
+          <div class="note">
+            ✅ Se alguma atividade não abrir, me avise. <br>
+            📌 Recomendação: faça pelo celular em uma rede estável (Wi-Fi).
+          </div>
+        </div>
+      </section>
+
+      <!-- AVISOS / PRÓXIMAS AULAS -->
+      <section class="card" id="card-proximas">
+        <div class="hd">
+          <h2>📘 Próximas Aulas</h2>
+          <span class="tag warn">Em breve</span>
+        </div>
+        <div class="bd">
+          <div class="list" id="proximas">
+
+            <div class="item" data-tags="aula 05 pacote office word excel">
+              <div class="left">
+                <div class="name">Aula 05 — Pacote Office (Word/Excel)</div>
+                <div class="meta">Material será liberado após a aula</div>
+              </div>
+              <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
+            </div>
+
+            <div class="item" data-tags="aula 06 digitação teclado">
+              <div class="left">
+                <div class="name">Aula 06 — Digitação e Produtividade</div>
+                <div class="meta">Material será liberado após a aula</div>
+              </div>
+              <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
+            </div>
+
+          </div>
+
+          <div class="note">
+            📌 Quando o PDF estiver pronto, ele aparece aqui com botão “Abrir PDF”.
+          </div>
+        </div>
+      </section>
+
+      <!-- AULAS PASSADAS / PDFS -->
+      <section class="card" style="grid-column:1 / -1" id="card-pdfs">
+        <div class="hd">
+          <h2>📚 PDFs das Aulas (Passadas e Materiais)</h2>
+          <span class="tag">Google Drive</span>
+        </div>
+        <div class="bd">
+          <div class="list" id="pdfs">
+
+            <!-- EXEMPLOS (troque pelos seus links reais do Drive) -->
+            <div class="item" data-tags="pdf aula 01 introdução informática conceitos">
+              <div class="left">
+                <div class="name">Aula 01 — O que é Informática? (PDF)</div>
+                <div class="meta">Material de apoio • PDF no Google Drive</div>
+              </div>
+              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+                Abrir PDF ↗
+              </a>
+            </div>
+
+            <div class="item" data-tags="pdf aula 02 hardware software tipos computador">
+              <div class="left">
+                <div class="name">Aula 02 — Hardware x Software (PDF)</div>
+                <div class="meta">Material de apoio • PDF no Google Drive</div>
+              </div>
+              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+                Abrir PDF ↗
+              </a>
+            </div>
+
+            <div class="item" data-tags="pdf aula 03 windows configurações tela idioma data hora som conta">
+              <div class="left">
+                <div class="name">Aula 03 — Configurações do Windows (PDF)</div>
+                <div class="meta">Material de apoio • PDF no Google Drive</div>
+              </div>
+              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+                Abrir PDF ↗
+              </a>
+            </div>
+
+          </div>
+
+          <div class="note">
+            🔎 Use a busca no topo para encontrar rapidamente um material (ex.: “Aula 03”, “Windows”, “Internet”).<br>
+            ✅ Tudo aqui é apenas para estudo — sem login, só pelo link.
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      Instituto ALFA • Área do Aluno — <span class="muted">Formando vencedores!</span>
+    </footer>
+
+  </div>
+
+  <script>
+    const q = document.getElementById('q');
+    const items = Array.from(document.querySelectorAll('.item'));
+
+    function norm(s){
+      return (s||"")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+    }
+
+    function applyFilter(){
+      const term = norm(q.value);
+      items.forEach(el=>{
+        const tags = norm(el.getAttribute('data-tags') || "");
+        const text = norm(el.innerText || "");
+        const ok = !term || tags.includes(term) || text.includes(term);
+        el.style.display = ok ? "" : "none";
+      });
+    }
+
+    q.addEventListener('input', applyFilter);
+  </script>
+</body>
+</html>
