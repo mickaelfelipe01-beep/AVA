@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Área do Aluno • Instituto ALFA</title>
 
-  <!-- Favicon (opcional) -->
   <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
 
   <style>
@@ -125,20 +124,14 @@
     }
     .search input::placeholder{color:rgba(234,242,255,.55)}
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-      margin-top:16px;
-    }
     @media (max-width: 920px){
-      .grid{grid-template-columns:1fr}
       .actions{justify-content:flex-start}
       .search{min-width:0; width:100%}
       header{flex-direction:column; align-items:stretch}
     }
 
     .card{
+      margin-top:16px;
       border:1px solid var(--line);
       background: linear-gradient(180deg, var(--card), var(--card2));
       border-radius: var(--radius);
@@ -146,15 +139,48 @@
       overflow:hidden;
     }
 
-    .card .hd{
+    /* ABAS */
+    .tabs{
+      display:flex;
+      gap:10px;
+      padding:14px 14px 0;
+      flex-wrap:wrap;
+    }
+    .tab{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      padding:10px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .tab:hover{transform: translateY(-1px); background: rgba(255,255,255,.10)}
+    .tab.active{
+      color: var(--text);
+      border-color: rgba(34,197,94,.35);
+      background: rgba(34,197,94,.16);
+    }
+
+    .panel{
+      display:none;
+      padding:14px 18px 18px;
+    }
+    .panel.active{display:block}
+
+    .hd{
       padding:16px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      border-top:1px solid rgba(255,255,255,.08);
       border-bottom:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.10);
     }
-
     .hd h2{
       margin:0;
       font-size:15px;
@@ -175,14 +201,11 @@
     .tag.ok{border-color: rgba(22,163,74,.35); background: rgba(22,163,74,.14); color:#bff5cf}
     .tag.warn{border-color: rgba(251,146,60,.40); background: rgba(251,146,60,.14); color:#ffe2c8}
 
-    .card .bd{
-      padding:14px 18px 18px;
-    }
-
     .list{
       display:flex;
       flex-direction:column;
       gap:10px;
+      margin-top:12px;
     }
 
     .item{
@@ -203,7 +226,7 @@
       min-width:0;
     }
     .item .name{
-      font-weight:700;
+      font-weight:800;
       font-size:14px;
       white-space:nowrap;
       overflow:hidden;
@@ -227,7 +250,7 @@
       background: rgba(255,255,255,.08);
       color: var(--text);
       text-decoration:none;
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       white-space:nowrap;
       transition: transform .08s ease, background .2s ease, border-color .2s ease;
@@ -266,7 +289,6 @@
     <header>
       <div class="brand">
         <div class="logo">
-          <!-- Troque o src pela sua logo (pode ser link do GitHub Pages ou Drive) -->
           <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Instituto ALFA">
         </div>
         <div class="title">
@@ -276,138 +298,161 @@
       </div>
 
       <div class="actions">
-        <div class="pill">📌 Dica: salve este link nos favoritos</div>
-        <div class="search" title="Pesquisar por aula ou atividade">
+        <div class="pill">📌 Salve este link nos favoritos</div>
+        <div class="search" title="Pesquisar na aba atual">
           🔎
-          <input id="q" type="search" placeholder="Pesquisar: ex. 'Windows', 'Aula 03', 'Internet'..." />
+          <input id="q" type="search" placeholder="Pesquisar nesta aba..." />
         </div>
       </div>
     </header>
 
-    <div class="grid">
+    <section class="card">
+      <!-- ABAS -->
+      <div class="tabs" role="tablist" aria-label="Navegação">
+        <div class="tab active" data-tab="atividades" role="tab" aria-selected="true">📝 Atividades</div>
+        <div class="tab" data-tab="pdfs" role="tab" aria-selected="false">📚 PDFs</div>
+        <div class="tab" data-tab="proximas" role="tab" aria-selected="false">📘 Próximas aulas</div>
+        <div class="tab" data-tab="avisos" role="tab" aria-selected="false">📢 Avisos</div>
+      </div>
 
-      <!-- ATIVIDADES -->
-      <section class="card" id="card-atividades">
-        <div class="hd">
-          <h2>📝 Atividades da Semana</h2>
-          <span class="tag ok">Atualizado</span>
-        </div>
-        <div class="bd">
-          <div class="list" id="atividades">
+      <!-- PAINEL: ATIVIDADES -->
+      <div class="hd" data-hd="atividades">
+        <h2>📝 Atividades da Semana</h2>
+        <span class="tag ok">Atualizado</span>
+      </div>
+      <div class="panel active" id="panel-atividades" data-panel="atividades">
+        <div class="list">
 
-            <!-- EXEMPLOS (troque pelos seus links reais) -->
-            <div class="item" data-tags="atividade semana windows configurações">
-              <div class="left">
-                <div class="name">Atividade — Configurações do Windows</div>
-                <div class="meta">Baseada na Aula 03 • Prazo: até sexta-feira</div>
-              </div>
-              <a class="btn primary" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
-                Abrir atividade ↗
-              </a>
+          <div class="item" data-tags="atividade semana windows configurações aula 03">
+            <div class="left">
+              <div class="name">Atividade — Configurações do Windows</div>
+              <div class="meta">Baseada na Aula 03 • Prazo: até sexta-feira</div>
             </div>
-
-            <div class="item" data-tags="atividade internet navegador segurança">
-              <div class="left">
-                <div class="name">Atividade — Internet e Navegadores</div>
-                <div class="meta">Exercícios de fixação • Prazo: até sexta-feira</div>
-              </div>
-              <a class="btn orange" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
-                Abrir atividade ↗
-              </a>
-            </div>
-
+            <a class="btn primary" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
+              Abrir atividade ↗
+            </a>
           </div>
 
-          <div class="note">
-            ✅ Se alguma atividade não abrir, me avise. <br>
-            📌 Recomendação: faça pelo celular em uma rede estável (Wi-Fi).
-          </div>
-        </div>
-      </section>
-
-      <!-- AVISOS / PRÓXIMAS AULAS -->
-      <section class="card" id="card-proximas">
-        <div class="hd">
-          <h2>📘 Próximas Aulas</h2>
-          <span class="tag warn">Em breve</span>
-        </div>
-        <div class="bd">
-          <div class="list" id="proximas">
-
-            <div class="item" data-tags="aula 05 pacote office word excel">
-              <div class="left">
-                <div class="name">Aula 05 — Pacote Office (Word/Excel)</div>
-                <div class="meta">Material será liberado após a aula</div>
-              </div>
-              <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
+          <div class="item" data-tags="atividade internet navegador segurança">
+            <div class="left">
+              <div class="name">Atividade — Internet e Navegadores</div>
+              <div class="meta">Exercícios de fixação • Prazo: até sexta-feira</div>
             </div>
-
-            <div class="item" data-tags="aula 06 digitação teclado">
-              <div class="left">
-                <div class="name">Aula 06 — Digitação e Produtividade</div>
-                <div class="meta">Material será liberado após a aula</div>
-              </div>
-              <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
-            </div>
-
+            <a class="btn orange" target="_blank" rel="noopener" href="https://SEU_LINK_DA_ATIVIDADE_AQUI">
+              Abrir atividade ↗
+            </a>
           </div>
 
-          <div class="note">
-            📌 Quando o PDF estiver pronto, ele aparece aqui com botão “Abrir PDF”.
-          </div>
         </div>
-      </section>
 
-      <!-- AULAS PASSADAS / PDFS -->
-      <section class="card" style="grid-column:1 / -1" id="card-pdfs">
-        <div class="hd">
-          <h2>📚 PDFs das Aulas (Passadas e Materiais)</h2>
-          <span class="tag">Google Drive</span>
+        <div class="note">
+          ✅ Se alguma atividade não abrir, me avise.<br>
+          📌 Recomendação: faça pelo celular em uma rede estável (Wi-Fi).
         </div>
-        <div class="bd">
-          <div class="list" id="pdfs">
+      </div>
 
-            <!-- EXEMPLOS (troque pelos seus links reais do Drive) -->
-            <div class="item" data-tags="pdf aula 01 introdução informática conceitos">
-              <div class="left">
-                <div class="name">Aula 01 — O que é Informática? (PDF)</div>
-                <div class="meta">Material de apoio • PDF no Google Drive</div>
-              </div>
-              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
-                Abrir PDF ↗
-              </a>
+      <!-- PAINEL: PDFS -->
+      <div class="hd" data-hd="pdfs" style="display:none">
+        <h2>📚 PDFs das Aulas (Passadas e Materiais)</h2>
+        <span class="tag">Google Drive</span>
+      </div>
+      <div class="panel" id="panel-pdfs" data-panel="pdfs">
+        <div class="list">
+
+          <div class="item" data-tags="pdf aula 01 introdução informática conceitos">
+            <div class="left">
+              <div class="name">Aula 01 — O que é Informática? (PDF)</div>
+              <div class="meta">Material de apoio • PDF no Google Drive</div>
             </div>
-
-            <div class="item" data-tags="pdf aula 02 hardware software tipos computador">
-              <div class="left">
-                <div class="name">Aula 02 — Hardware x Software (PDF)</div>
-                <div class="meta">Material de apoio • PDF no Google Drive</div>
-              </div>
-              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
-                Abrir PDF ↗
-              </a>
-            </div>
-
-            <div class="item" data-tags="pdf aula 03 windows configurações tela idioma data hora som conta">
-              <div class="left">
-                <div class="name">Aula 03 — Configurações do Windows (PDF)</div>
-                <div class="meta">Material de apoio • PDF no Google Drive</div>
-              </div>
-              <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
-                Abrir PDF ↗
-              </a>
-            </div>
-
+            <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+              Abrir PDF ↗
+            </a>
           </div>
 
-          <div class="note">
-            🔎 Use a busca no topo para encontrar rapidamente um material (ex.: “Aula 03”, “Windows”, “Internet”).<br>
-            ✅ Tudo aqui é apenas para estudo — sem login, só pelo link.
+          <div class="item" data-tags="pdf aula 02 hardware software tipos computador">
+            <div class="left">
+              <div class="name">Aula 02 — Hardware x Software (PDF)</div>
+              <div class="meta">Material de apoio • PDF no Google Drive</div>
+            </div>
+            <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+              Abrir PDF ↗
+            </a>
+          </div>
+
+          <div class="item" data-tags="pdf aula 03 windows configurações tela idioma data hora som conta personalização">
+            <div class="left">
+              <div class="name">Aula 03 — Configurações do Windows (PDF)</div>
+              <div class="meta">Material de apoio • PDF no Google Drive</div>
+            </div>
+            <a class="btn primary" target="_blank" rel="noopener" href="https://drive.google.com/file/d/SEU_ID_AQUI/view?usp=sharing">
+              Abrir PDF ↗
+            </a>
+          </div>
+
+        </div>
+
+        <div class="note">
+          🔎 Use a busca no topo para encontrar rápido (ex.: “Aula 03”, “Windows”, “Internet”).<br>
+          ✅ Tudo aqui é apenas para estudo — sem login, só pelo link.
+        </div>
+      </div>
+
+      <!-- PAINEL: PRÓXIMAS AULAS -->
+      <div class="hd" data-hd="proximas" style="display:none">
+        <h2>📘 Próximas Aulas</h2>
+        <span class="tag warn">Em breve</span>
+      </div>
+      <div class="panel" id="panel-proximas" data-panel="proximas">
+        <div class="list">
+
+          <div class="item" data-tags="aula 05 pacote office word excel">
+            <div class="left">
+              <div class="name">Aula 05 — Pacote Office (Word/Excel)</div>
+              <div class="meta">Material será liberado após a aula</div>
+            </div>
+            <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
+          </div>
+
+          <div class="item" data-tags="aula 06 digitação teclado produtividade">
+            <div class="left">
+              <div class="name">Aula 06 — Digitação e Produtividade</div>
+              <div class="meta">Material será liberado após a aula</div>
+            </div>
+            <a class="btn ghost" href="#" onclick="return false;">Em breve</a>
+          </div>
+
+        </div>
+
+        <div class="note">
+          📌 Quando o PDF estiver pronto, eu recomendo você trocar “Em breve” por “Abrir PDF”.
+        </div>
+      </div>
+
+      <!-- PAINEL: AVISOS -->
+      <div class="hd" data-hd="avisos" style="display:none">
+        <h2>📢 Avisos</h2>
+        <span class="tag">Recados</span>
+      </div>
+      <div class="panel" id="panel-avisos" data-panel="avisos">
+        <div class="note" style="margin-top:0">
+          📌 <strong>Recado da semana:</strong><br>
+          - Atividade disponível até <strong>sexta-feira</strong>.<br>
+          - Quem tiver dúvida, pode perguntar no grupo.<br><br>
+          ✅ Dica: sempre confira esta página antes de mandar mensagem dizendo “perdi o link” 😄
+        </div>
+
+        <div class="list" style="margin-top:12px">
+          <div class="item" data-tags="aviso presença material">
+            <div class="left">
+              <div class="name">📍 Levar caderno na próxima aula</div>
+              <div class="meta">Vamos fazer prática guiada no laboratório</div>
+            </div>
+            <span class="tag ok">Lembrete</span>
           </div>
         </div>
-      </section>
+      </div>
 
-    </div>
+    </section>
 
     <footer>
       Instituto ALFA • Área do Aluno — <span class="muted">Formando vencedores!</span>
@@ -416,8 +461,10 @@
   </div>
 
   <script>
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    const headers = Array.from(document.querySelectorAll('.hd'));
     const q = document.getElementById('q');
-    const items = Array.from(document.querySelectorAll('.item'));
 
     function norm(s){
       return (s||"")
@@ -427,8 +474,32 @@
         .trim();
     }
 
+    function setActive(tabName){
+      tabs.forEach(t=>{
+        const active = t.dataset.tab === tabName;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      panels.forEach(p=>{
+        p.classList.toggle('active', p.dataset.panel === tabName);
+      });
+
+      headers.forEach(h=>{
+        h.style.display = (h.dataset.hd === tabName) ? '' : 'none';
+      });
+
+      // limpa busca ao trocar de aba (pra não "sumir" conteúdo e o aluno achar que quebrou)
+      q.value = "";
+      applyFilter();
+    }
+
     function applyFilter(){
       const term = norm(q.value);
+      const activePanel = panels.find(p => p.classList.contains('active'));
+      if(!activePanel) return;
+
+      const items = Array.from(activePanel.querySelectorAll('.item'));
       items.forEach(el=>{
         const tags = norm(el.getAttribute('data-tags') || "");
         const text = norm(el.innerText || "");
@@ -437,7 +508,14 @@
       });
     }
 
+    tabs.forEach(t=>{
+      t.addEventListener('click', ()=> setActive(t.dataset.tab));
+    });
+
     q.addEventListener('input', applyFilter);
+
+    // inicializa filtro
+    applyFilter();
   </script>
 </body>
 </html>
