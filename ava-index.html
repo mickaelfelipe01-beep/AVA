@@ -199,7 +199,6 @@
       flex-wrap:wrap;
     }
 
-    /* ✅ corrigido: padroniza alinhamento das abas em TODAS as telas */
     .tab{
       display:inline-flex;
       align-items:center;
@@ -347,33 +346,33 @@
       border-radius:10px;
     }
 
- /* Botão instalar (elegante) */
-.btn.install{
-  background: rgba(37,99,235,.10);
-  border-color: rgba(37,99,235,.28);
-  color: var(--text);
-  position: relative;
-  overflow: hidden;
-}
-.btn.install:hover{
-  background: rgba(37,99,235,.14);
-  border-color: rgba(37,99,235,.38);
-}
-.btn.install::after{
-  content:"";
-  position:absolute; inset:-2px;
-  background: radial-gradient(400px 120px at 20% 50%, rgba(37,99,235,.18), transparent 60%);
-  opacity:.9;
-  pointer-events:none;
-}
-html[data-theme="dark"] .btn.install{
-  background: rgba(96,165,250,.10);
-  border-color: rgba(96,165,250,.28);
-}
-html[data-theme="dark"] .btn.install::after{
-  background: radial-gradient(400px 120px at 20% 50%, rgba(96,165,250,.20), transparent 60%);
-}
-    
+    /* Botão instalar (elegante) */
+    .btn.install{
+      background: rgba(37,99,235,.10);
+      border-color: rgba(37,99,235,.28);
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn.install:hover{
+      background: rgba(37,99,235,.14);
+      border-color: rgba(37,99,235,.38);
+    }
+    .btn.install::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(400px 120px at 20% 50%, rgba(37,99,235,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    html[data-theme="dark"] .btn.install{
+      background: rgba(96,165,250,.10);
+      border-color: rgba(96,165,250,.28);
+    }
+    html[data-theme="dark"] .btn.install::after{
+      background: radial-gradient(400px 120px at 20% 50%, rgba(96,165,250,.20), transparent 60%);
+    }
+
     .note{
       margin-top:14px;
       padding:12px 12px;
@@ -415,7 +414,7 @@ html[data-theme="dark"] .btn.install::after{
     .modal-backdrop.show{display:flex}
     .modal{
       width:min(980px, 100%);
-      background:#fff; /* mantém branco (editor legível) */
+      background:#fff;
       border-radius: 18px;
       border:1px solid rgba(15,23,42,.12);
       box-shadow: 0 30px 80px rgba(2,6,23,.25);
@@ -517,11 +516,9 @@ html[data-theme="dark"] .btn.install::after{
       .tab[data-tab="proximas"]{   grid-column:1; grid-row:2; }
       .tab[data-tab="avisos"]{     grid-column:2; grid-row:2; }
 
-      /* Remove a micro “subida” no hover no mobile */
       .tab:hover{ transform:none; }
     }
 
-    /* ✅ opcional (mas ajuda): remove “subida” também até 760px */
     @media (max-width: 760px){
       .tab:hover{ transform:none; }
     }
@@ -531,12 +528,10 @@ html[data-theme="dark"] .btn.install::after{
       border-color: rgba(37,99,235,.25);
       box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08);
     }
-
     #panel-destaque .tag{
       border-color: rgba(245,158,11,.35);
       background: rgba(245,158,11,.12);
     }
-
     @keyframes alfaPulse{
       0%,100%{ box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08); }
       50%{    box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 6px rgba(37,99,235,.12); }
@@ -642,6 +637,7 @@ html[data-theme="dark"] .btn.install::after{
         <span class="tag">Recados</span>
       </div>
 
+      <!-- PAINEL ATIVIDADES -->
       <div class="panel" id="panel-atividades" data-panel="atividades">
         <div class="list" id="list-atividades"></div>
         <div class="note">
@@ -650,6 +646,7 @@ html[data-theme="dark"] .btn.install::after{
         </div>
       </div>
 
+      <!-- PAINEL PDFS -->
       <div class="panel" id="panel-pdfs" data-panel="pdfs">
         <div class="list" id="list-pdfs"></div>
         <div class="note">
@@ -658,6 +655,7 @@ html[data-theme="dark"] .btn.install::after{
         </div>
       </div>
 
+      <!-- PAINEL PRÓXIMAS -->
       <div class="panel" id="panel-proximas" data-panel="proximas">
         <div class="list" id="list-proximas"></div>
         <div class="note">
@@ -665,21 +663,25 @@ html[data-theme="dark"] .btn.install::after{
         </div>
       </div>
 
-<div class="row" style="justify-content:space-between">
-  <div class="status" id="destaqueStatus">Carregando o destaque…</div>
+      <!-- PAINEL DESTAQUE -->
+      <div class="panel active" id="panel-destaque" data-panel="destaque">
+        <div class="row" style="justify-content:space-between">
+          <div class="status" id="destaqueStatus">Carregando o destaque…</div>
 
-  <div class="row" style="justify-content:flex-end">
-    <button class="btn install" id="btnInstall" type="button" style="display:none" title="Instalar o app no celular">
-      ⬇️ Instalar App
-    </button>
+          <div class="row" style="justify-content:flex-end">
+            <button class="btn install" id="btnInstall" type="button" style="display:none" title="Instalar o app no celular">
+              ⬇️ Instalar App
+            </button>
 
-    <button class="btn primary" id="btnEditarDestaque" type="button" title="Editar (professor)">✏️ Editar</button>
-  </div>
-</div>
+            <button class="btn primary" id="btnEditarDestaque" type="button" title="Editar (professor)">
+              ✏️ Editar
+            </button>
+          </div>
+        </div>
 
-<div class="note" id="installHelp" style="display:none;margin-top:10px">
-  📌 Para instalar: abra este link no <b>Chrome</b> (Android) ou <b>Safari</b> (iPhone) e use “<b>Adicionar à Tela de Início</b>”.
-</div>
+        <div class="note" id="installHelp" style="display:none;margin-top:10px">
+          📌 Para instalar: abra este link no <b>Chrome</b> (Android) ou <b>Safari</b> (iPhone) e use “<b>Adicionar à Tela de Início</b>”.
+        </div>
 
         <div style="height:10px"></div>
 
@@ -694,6 +696,7 @@ html[data-theme="dark"] .btn.install::after{
         </div>
       </div>
 
+      <!-- PAINEL AVISOS -->
       <div class="panel" id="panel-avisos" data-panel="avisos">
         <div class="note" style="margin-top:0">
           📌 <strong>Recado da semana:</strong><br>
@@ -702,6 +705,7 @@ html[data-theme="dark"] .btn.install::after{
           ✅ Antes de dizer “perdi o link”, confira esta página 😄
         </div>
       </div>
+
     </section>
 
     <footer>
@@ -709,6 +713,7 @@ html[data-theme="dark"] .btn.install::after{
     </footer>
   </div>
 
+  <!-- MODAL DESTAQUE -->
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Editor do Destaque">
       <div class="modal-hd">
@@ -730,6 +735,7 @@ html[data-theme="dark"] .btn.install::after{
     </div>
   </div>
 
+  <!-- MODAL LISTAS -->
   <div class="modal-backdrop" id="listBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Gerenciar itens">
       <div class="modal-hd">
@@ -794,7 +800,7 @@ html[data-theme="dark"] .btn.install::after{
       refreshAvisosDot();
     }
 
-    // ===== Tema (☀️/🌙) — não mexe nas funcionalidades existentes =====
+    // ===== Tema (☀️/🌙) =====
     const themeToggle = document.getElementById("themeToggle");
 
     function applyTheme(t){
@@ -821,7 +827,85 @@ html[data-theme="dark"] .btn.install::after{
     }
     initTheme();
 
-    // ===== Código original (funcionalidades) =====
+    // ===== Botão INSTALAR (somente na aba Destaque) =====
+    let deferredPrompt = null;
+
+    const btnInstall = document.getElementById("btnInstall");
+    const installHelp = document.getElementById("installHelp");
+
+    function isStandalone(){
+      return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    }
+
+    function showInstallButton(show){
+      if(!btnInstall) return;
+      btnInstall.style.display = show ? "" : "none";
+    }
+
+    function showInstallHelp(show){
+      if(!installHelp) return;
+      installHelp.style.display = show ? "" : "none";
+    }
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const isDestaque = document.querySelector('.tab.active')?.dataset?.tab === "destaque";
+      if(isDestaque && !isStandalone()){
+        showInstallButton(true);
+        showInstallHelp(false);
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      showInstallButton(false);
+      showInstallHelp(false);
+    });
+
+    if(btnInstall){
+      btnInstall.addEventListener("click", async () => {
+        try{
+          if(!deferredPrompt){
+            showInstallHelp(true);
+            return;
+          }
+          await deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          showInstallButton(false);
+        }catch(err){
+          console.error(err);
+          showInstallHelp(true);
+        }
+      });
+    }
+
+    function updateInstallUIByTab(tabName){
+      if(isStandalone()){
+        showInstallButton(false);
+        showInstallHelp(false);
+        return;
+      }
+
+      if(tabName !== "destaque"){
+        showInstallButton(false);
+        showInstallHelp(false);
+        return;
+      }
+
+      if(deferredPrompt){
+        showInstallButton(true);
+        showInstallHelp(false);
+        return;
+      }
+
+      showInstallButton(false);
+      showInstallHelp(true);
+    }
+
+    // ===== Funcionalidades (tabs + listas + destaque + modais) =====
     const tabs = Array.from(document.querySelectorAll('.tab'));
     const panels = Array.from(document.querySelectorAll('.panel'));
     const headers = Array.from(document.querySelectorAll('.hd'));
@@ -890,7 +974,7 @@ html[data-theme="dark"] .btn.install::after{
 
       if (tabName === "destaque") loadDestaque();
       if (tabName === "avisos") markAvisosSeen();
-      
+
       updateInstallUIByTab(tabName);
     }
 
@@ -1203,7 +1287,6 @@ html[data-theme="dark"] .btn.install::after{
     turmaSelect.addEventListener("change", ()=> setTurma(turmaSelect.value));
 
     setActive("destaque");
-    updateInstallUIByTab("destaque");
     applyFilter();
 
     loadAll().catch(err=>{
@@ -1215,93 +1298,6 @@ html[data-theme="dark"] .btn.install::after{
 
     refreshAvisosDot();
 
-// ===== Botão INSTALAR (somente na aba Destaque) =====
-let deferredPrompt = null;
-
-const btnInstall = document.getElementById("btnInstall");
-const installHelp = document.getElementById("installHelp");
-
-function isStandalone(){
-  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-}
-
-function showInstallButton(show){
-  if(!btnInstall) return;
-  btnInstall.style.display = show ? "" : "none";
-}
-
-function showInstallHelp(show){
-  if(!installHelp) return;
-  installHelp.style.display = show ? "" : "none";
-}
-
-// captura o evento do navegador (Chrome/Edge/alguns Android)
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-
-  // só exibe se estiver na aba Destaque e não estiver instalado
-  const isDestaque = document.querySelector('.tab.active')?.dataset?.tab === "destaque";
-  if(isDestaque && !isStandalone()){
-    showInstallButton(true);
-    showInstallHelp(false);
-  }
-});
-
-// se instalou, some
-window.addEventListener("appinstalled", () => {
-  deferredPrompt = null;
-  showInstallButton(false);
-  showInstallHelp(false);
-});
-
-if(btnInstall){
-  btnInstall.addEventListener("click", async () => {
-    try{
-      if(!deferredPrompt){
-        // não tem prompt (provavelmente abriu no WhatsApp/Instagram ou iPhone)
-        showInstallHelp(true);
-        return;
-      }
-      await deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      showInstallButton(false);
-    }catch(err){
-      console.error(err);
-      showInstallHelp(true);
-    }
-  });
-}
-
-// toda vez que mudar de aba, decide o que mostrar
-function updateInstallUIByTab(tabName){
-  if(isStandalone()){
-    showInstallButton(false);
-    showInstallHelp(false);
-    return;
-  }
-
-  // Só mostra UI na aba Destaque
-  if(tabName !== "destaque"){
-    showInstallButton(false);
-    showInstallHelp(false);
-    return;
-  }
-
-  // Se já capturou o evento, mostra o botão
-  if(deferredPrompt){
-    showInstallButton(true);
-    showInstallHelp(false);
-    return;
-  }
-
-  // Sem evento: pode ser iPhone / WebView / navegador que não sugere
-  // Mostra uma ajudinha discreta
-  showInstallButton(false);
-  showInstallHelp(true);
-}
-    
     // ===== PWA =====
     if ("serviceWorker" in navigator){
       navigator.serviceWorker.register("./sw.js").catch(console.error);
