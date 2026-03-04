@@ -446,6 +446,31 @@
       font-size:12px;
     }
     .muted{color:var(--muted2)}
+
+    /* ===== AJUSTES FINOS MOBILE (SEM MEXER EM FUNCIONALIDADE) ===== */
+@media (max-width: 520px){
+
+  /* 1) Título do topo não cortar no celular */
+  .brand{ min-width: 0; }
+  .title strong{
+    white-space: normal;        /* deixa quebrar linha */
+    overflow: visible;
+    text-overflow: unset;
+    line-height: 1.15;
+    font-size: 16px;            /* só um tiquinho menor pra caber bonito */
+  }
+  .title span{
+    font-size: 12.5px;
+  }
+
+  /* 2) Sombra das abas (tabs) mais “limpa” no mobile */
+  .tabs{
+    box-shadow: 0 10px 22px rgba(2,6,23,.06);
+  }
+  .tab.active{
+    box-shadow: none;           /* remove a sombra “quadrada” do ativo no mobile */
+  }
+}
   </style>
 </head>
 
