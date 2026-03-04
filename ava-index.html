@@ -501,6 +501,14 @@
   grid-column: 1 / -1;                /* mantém em 2 linha */
 }
 
+.tab[data-tab="atividades"]{ grid-column:1; grid-row:1; }
+.tab[data-tab="pdfs"]{ grid-column:2; grid-row:1; }
+
+.tab[data-tab="proximas"]{ grid-column:1; grid-row:2; }
+.tab[data-tab="avisos"]{ grid-column:2; grid-row:2; }
+
+.tab[data-tab="destaque"]{ grid-column:1 / -1; grid-row:3; }
+  
   /* Remove a micro “subida” no hover no mobile (evita tremidinha) */
   .tab:hover{ transform: none; }
 }
