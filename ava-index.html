@@ -347,6 +347,33 @@
       border-radius:10px;
     }
 
+ /* Botão instalar (elegante) */
+.btn.install{
+  background: rgba(37,99,235,.10);
+  border-color: rgba(37,99,235,.28);
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+.btn.install:hover{
+  background: rgba(37,99,235,.14);
+  border-color: rgba(37,99,235,.38);
+}
+.btn.install::after{
+  content:"";
+  position:absolute; inset:-2px;
+  background: radial-gradient(400px 120px at 20% 50%, rgba(37,99,235,.18), transparent 60%);
+  opacity:.9;
+  pointer-events:none;
+}
+html[data-theme="dark"] .btn.install{
+  background: rgba(96,165,250,.10);
+  border-color: rgba(96,165,250,.28);
+}
+html[data-theme="dark"] .btn.install::after{
+  background: radial-gradient(400px 120px at 20% 50%, rgba(96,165,250,.20), transparent 60%);
+}
+    
     .note{
       margin-top:14px;
       padding:12px 12px;
@@ -638,11 +665,21 @@
         </div>
       </div>
 
-      <div class="panel active" id="panel-destaque" data-panel="destaque">
-        <div class="row" style="justify-content:space-between">
-          <div class="status" id="destaqueStatus">Carregando o destaque…</div>
-          <button class="btn primary" id="btnEditarDestaque" type="button" title="Editar (professor)">✏️ Editar</button>
-        </div>
+<div class="row" style="justify-content:space-between">
+  <div class="status" id="destaqueStatus">Carregando o destaque…</div>
+
+  <div class="row" style="justify-content:flex-end">
+    <button class="btn install" id="btnInstall" type="button" style="display:none" title="Instalar o app no celular">
+      ⬇️ Instalar App
+    </button>
+
+    <button class="btn primary" id="btnEditarDestaque" type="button" title="Editar (professor)">✏️ Editar</button>
+  </div>
+</div>
+
+<div class="note" id="installHelp" style="display:none;margin-top:10px">
+  📌 Para instalar: abra este link no <b>Chrome</b> (Android) ou <b>Safari</b> (iPhone) e use “<b>Adicionar à Tela de Início</b>”.
+</div>
 
         <div style="height:10px"></div>
 
@@ -853,6 +890,8 @@
 
       if (tabName === "destaque") loadDestaque();
       if (tabName === "avisos") markAvisosSeen();
+      
+      updateInstallUIByTab(tabName);
     }
 
     function applyFilter(){
@@ -1164,6 +1203,7 @@
     turmaSelect.addEventListener("change", ()=> setTurma(turmaSelect.value));
 
     setActive("destaque");
+    updateInstallUIByTab("destaque");
     applyFilter();
 
     loadAll().catch(err=>{
@@ -1175,6 +1215,93 @@
 
     refreshAvisosDot();
 
+// ===== Botão INSTALAR (somente na aba Destaque) =====
+let deferredPrompt = null;
+
+const btnInstall = document.getElementById("btnInstall");
+const installHelp = document.getElementById("installHelp");
+
+function isStandalone(){
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function showInstallButton(show){
+  if(!btnInstall) return;
+  btnInstall.style.display = show ? "" : "none";
+}
+
+function showInstallHelp(show){
+  if(!installHelp) return;
+  installHelp.style.display = show ? "" : "none";
+}
+
+// captura o evento do navegador (Chrome/Edge/alguns Android)
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // só exibe se estiver na aba Destaque e não estiver instalado
+  const isDestaque = document.querySelector('.tab.active')?.dataset?.tab === "destaque";
+  if(isDestaque && !isStandalone()){
+    showInstallButton(true);
+    showInstallHelp(false);
+  }
+});
+
+// se instalou, some
+window.addEventListener("appinstalled", () => {
+  deferredPrompt = null;
+  showInstallButton(false);
+  showInstallHelp(false);
+});
+
+if(btnInstall){
+  btnInstall.addEventListener("click", async () => {
+    try{
+      if(!deferredPrompt){
+        // não tem prompt (provavelmente abriu no WhatsApp/Instagram ou iPhone)
+        showInstallHelp(true);
+        return;
+      }
+      await deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      showInstallButton(false);
+    }catch(err){
+      console.error(err);
+      showInstallHelp(true);
+    }
+  });
+}
+
+// toda vez que mudar de aba, decide o que mostrar
+function updateInstallUIByTab(tabName){
+  if(isStandalone()){
+    showInstallButton(false);
+    showInstallHelp(false);
+    return;
+  }
+
+  // Só mostra UI na aba Destaque
+  if(tabName !== "destaque"){
+    showInstallButton(false);
+    showInstallHelp(false);
+    return;
+  }
+
+  // Se já capturou o evento, mostra o botão
+  if(deferredPrompt){
+    showInstallButton(true);
+    showInstallHelp(false);
+    return;
+  }
+
+  // Sem evento: pode ser iPhone / WebView / navegador que não sugere
+  // Mostra uma ajudinha discreta
+  showInstallButton(false);
+  showInstallHelp(true);
+}
+    
     // ===== PWA =====
     if ("serviceWorker" in navigator){
       navigator.serviceWorker.register("./sw.js").catch(console.error);
