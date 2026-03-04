@@ -1,0 +1,15 @@
+{
+  "name": "Área do Aluno • Instituto ALFA",
+  "short_name": "ALFA",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
