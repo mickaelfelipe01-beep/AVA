@@ -496,10 +496,10 @@
     white-space: nowrap;              /* mantém em 1 linha */
   }
 
-  /* Avisos fica ocupando a linha inteira (mais bonito) */
-  .tab[data-tab="avisos"]{
-    grid-column: 1 / -1;              /* pega as 2 colunas */
-  }
+/* Destaque ocupa a linha inteira */
+.tab[data-tab="destaque"]{
+  grid-column: 1 / -1;                /* mantém em 2 linha */
+}
 
   /* Remove a micro “subida” no hover no mobile (evita tremidinha) */
   .tab:hover{ transform: none; }
