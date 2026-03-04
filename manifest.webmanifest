@@ -1,7 +1,7 @@
 {
   "name": "Área do Aluno • Instituto ALFA",
   "short_name": "ALFA",
-  "start_url": "./",
+  "start_url": "./ava-index.html",
   "display": "standalone",
   "background_color": "#f6f7fb",
   "theme_color": "#2563eb",
