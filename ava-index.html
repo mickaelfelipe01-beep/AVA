@@ -159,6 +159,19 @@
       .search{min-width:0;width:100%}
     }
 
+    /* ✅ FIX TÍTULO NO CELULAR (NÃO CORTA COM "…") */
+    @media (max-width: 600px){
+      .brand{min-width:0;}
+      .title strong{
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        font-size: 16px;
+        line-height: 1.2;
+      }
+      .title span{font-size:12px;}
+    }
+
     /* CARD */
     .card{
       margin-top:16px;
@@ -486,7 +499,17 @@
 
     /* ===== ORGANIZAR ABAS NO MOBILE (2 COLUNAS) ===== */
     @media (max-width: 520px){
-      .cardTop{align-items: stretch;}
+      /* ✅ FIX: evita "space-between" esquisito no mobile */
+      .cardTop{
+        justify-content: center;
+        gap: 10px;
+        align-items: stretch;
+      }
+      .cardTop .hint{
+        width:100%;
+        text-align:center;
+        white-space:normal;
+      }
 
       .tabs{
         display:grid;
@@ -786,7 +809,7 @@
     const API = "https://script.google.com/macros/s/AKfycbyGQj5u2WPEwtQaBAH0lnFkPMxybqO1krxTESpyqHhY1H-Bt3jUXxL2YbKOJsPIbR-fwg/exec";
 
     // ===== Avisos: indicador "novo" por versão (sem login) =====
-    const AVISOS_VERSION = "2026-03-03-01"; // <- quando você mudar o texto dos avisos, troque este valor
+    const AVISOS_VERSION = "2026-03-03-01";
     const avisosDot = document.getElementById("avisosDot");
 
     function refreshAvisosDot(){
