@@ -471,6 +471,39 @@
     box-shadow: none;           /* remove a sombra “quadrada” do ativo no mobile */
   }
 }
+    /* ===== ORGANIZAR ABAS NO MOBILE (2 COLUNAS) ===== */
+@media (max-width: 520px){
+  .cardTop{
+    align-items: stretch;
+  }
+
+  .tabs{
+    display: grid;                    /* troca flex por grid só no mobile */
+    grid-template-columns: 1fr 1fr;   /* 2 colunas */
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 22px;
+    justify-items: stretch;
+    align-items: stretch;
+  }
+
+  .tab{
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 10px;
+    white-space: nowrap;              /* mantém em 1 linha */
+  }
+
+  /* Avisos fica ocupando a linha inteira (mais bonito) */
+  .tab[data-tab="avisos"]{
+    grid-column: 1 / -1;              /* pega as 2 colunas */
+  }
+
+  /* Remove a micro “subida” no hover no mobile (evita tremidinha) */
+  .tab:hover{ transform: none; }
+}
   </style>
 </head>
 
