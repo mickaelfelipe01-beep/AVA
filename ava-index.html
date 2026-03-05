@@ -34,7 +34,6 @@
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    /* ===== MODO ESCURO (opcional) ===== */
     html[data-theme="dark"]{
       --bg:#0b1220;
       --card:#0f172a;
@@ -71,7 +70,6 @@
 
     .wrap{max-width:1100px;margin:0 auto;padding:26px 16px 40px}
 
-    /* HEADER */
     header{
       display:flex;align-items:center;justify-content:space-between;gap:14px;
       padding:18px 18px;
@@ -118,7 +116,6 @@
       cursor:pointer;
     }
 
-    /* Toggle tema (☀️/🌙) */
     .themeBtn{
       border:0;
       background:transparent;
@@ -159,7 +156,6 @@
       .search{min-width:0;width:100%}
     }
 
-    /* ✅ FIX TÍTULO NO CELULAR (NÃO CORTA COM "…") */
     @media (max-width: 600px){
       .brand{min-width:0;}
       .title strong{
@@ -172,7 +168,6 @@
       .title span{font-size:12px;}
     }
 
-    /* CARD */
     .card{
       margin-top:16px;
       border:1px solid var(--line);
@@ -201,7 +196,6 @@
       .cardTop .hint{white-space:normal}
     }
 
-    /* ABAS */
     .tabs{
       display:inline-flex;
       padding:6px;
@@ -244,7 +238,6 @@
       box-shadow: 0 10px 18px rgba(0,0,0,.25);
     }
 
-    /* HEADERS */
     .hd{
       padding:14px 18px;
       display:flex;
@@ -281,7 +274,6 @@
     .panel{display:none;padding:16px 18px 18px}
     .panel.active{display:block}
 
-    /* LISTA */
     .list{display:flex;flex-direction:column;gap:12px}
 
     .item{
@@ -310,7 +302,6 @@
     }
     .item .meta{font-size:12.5px;color:var(--muted2);line-height:1.25}
 
-    /* BOTÕES */
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
       padding:10px 12px;
@@ -352,14 +343,12 @@
     }
     html[data-theme="dark"] .btn.danger{color:#fecaca}
 
-    /* ✅ Botão "Gerenciar" menor */
     .hd [data-manage].btn{
       padding:8px 10px;
       font-size:12px;
       border-radius:10px;
     }
 
-    /* Botão instalar (elegante) */
     .btn.install{
       background: rgba(37,99,235,.10);
       border-color: rgba(37,99,235,.28);
@@ -416,7 +405,6 @@
     }
     .article img{max-width:100%; border-radius:12px}
 
-    /* MODAIS */
     .modal-backdrop{
       position:fixed; inset:0;
       background: rgba(2,6,23,.45);
@@ -455,7 +443,6 @@
     #editor{height:320px; background:#fff}
     .status{font-size:12px; color: var(--muted2)}
 
-    /* TABELA GERENCIAR */
     .table{
       width:100%;
       border-collapse:separate;
@@ -497,9 +484,7 @@
     }
     .muted{color:var(--muted2)}
 
-    /* ===== ORGANIZAR ABAS NO MOBILE (2 COLUNAS) ===== */
     @media (max-width: 520px){
-      /* ✅ FIX: evita "space-between" esquisito no mobile */
       .cardTop{
         justify-content: center;
         gap: 10px;
@@ -528,7 +513,6 @@
         white-space:nowrap;
       }
 
-      /* Destaque ocupa a linha inteira */
       .tab[data-tab="destaque"]{
         grid-column: 1 / -1;
         grid-row: 3;
@@ -546,7 +530,6 @@
       .tab:hover{ transform:none; }
     }
 
-    /* ===== Destaque com "glow" sutil ===== */
     #panel-destaque .article{
       border-color: rgba(37,99,235,.25);
       box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08);
@@ -561,7 +544,6 @@
     }
     #panel-destaque .article{ animation: alfaPulse 3.2s ease-in-out infinite; }
 
-    /* bolinha "novo" */
     .dot{
       display:inline-block;
       width:8px;height:8px;
@@ -660,7 +642,6 @@
         <span class="tag">Recados</span>
       </div>
 
-      <!-- PAINEL ATIVIDADES -->
       <div class="panel" id="panel-atividades" data-panel="atividades">
         <div class="list" id="list-atividades"></div>
         <div class="note">
@@ -669,7 +650,6 @@
         </div>
       </div>
 
-      <!-- PAINEL PDFS -->
       <div class="panel" id="panel-pdfs" data-panel="pdfs">
         <div class="list" id="list-pdfs"></div>
         <div class="note">
@@ -678,7 +658,6 @@
         </div>
       </div>
 
-      <!-- PAINEL PRÓXIMAS -->
       <div class="panel" id="panel-proximas" data-panel="proximas">
         <div class="list" id="list-proximas"></div>
         <div class="note">
@@ -686,7 +665,6 @@
         </div>
       </div>
 
-      <!-- PAINEL DESTAQUE -->
       <div class="panel active" id="panel-destaque" data-panel="destaque">
         <div class="row" style="justify-content:space-between">
           <div class="status" id="destaqueStatus">Carregando o destaque…</div>
@@ -719,7 +697,6 @@
         </div>
       </div>
 
-      <!-- PAINEL AVISOS -->
       <div class="panel" id="panel-avisos" data-panel="avisos">
         <div class="note" style="margin-top:0">
           📌 <strong>Recado da semana:</strong><br>
@@ -736,7 +713,6 @@
     </footer>
   </div>
 
-  <!-- MODAL DESTAQUE -->
   <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Editor do Destaque">
       <div class="modal-hd">
@@ -758,7 +734,6 @@
     </div>
   </div>
 
-  <!-- MODAL LISTAS -->
   <div class="modal-backdrop" id="listBackdrop" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Gerenciar itens">
       <div class="modal-hd">
@@ -808,7 +783,7 @@
   <script>
     const API = "https://script.google.com/macros/s/AKfycbyGQj5u2WPEwtQaBAH0lnFkPMxybqO1krxTESpyqHhY1H-Bt3jUXxL2YbKOJsPIbR-fwg/exec";
 
-    // ===== Avisos: indicador "novo" por versão (sem login) =====
+    // ===== Avisos: indicador "novo" por versão =====
     const AVISOS_VERSION = "2026-03-03-01";
     const avisosDot = document.getElementById("avisosDot");
 
@@ -817,15 +792,13 @@
       const isNew = (seen !== AVISOS_VERSION);
       if(avisosDot) avisosDot.classList.toggle("hide", !isNew);
     }
-
     function markAvisosSeen(){
       localStorage.setItem("ALFA_AVISOS_SEEN", AVISOS_VERSION);
       refreshAvisosDot();
     }
 
-    // ===== Tema (☀️/🌙) =====
+    // ===== Tema =====
     const themeToggle = document.getElementById("themeToggle");
-
     function applyTheme(t){
       const theme = (t === "dark") ? "dark" : "light";
       document.documentElement.setAttribute("data-theme", theme);
@@ -836,12 +809,10 @@
       if(icon) icon.textContent = (theme === "dark") ? "🌙" : "☀️";
       if(label) label.textContent = (theme === "dark") ? "Escuro" : "Claro";
     }
-
     function initTheme(){
       const saved = localStorage.getItem("ALFA_THEME");
       applyTheme(saved || "light");
     }
-
     if (themeToggle){
       themeToggle.addEventListener("click", ()=>{
         const cur = document.documentElement.getAttribute("data-theme") || "light";
@@ -850,21 +821,18 @@
     }
     initTheme();
 
-    // ===== Botão INSTALAR (somente na aba Destaque) =====
+    // ===== Botão INSTALAR =====
     let deferredPrompt = null;
-
     const btnInstall = document.getElementById("btnInstall");
     const installHelp = document.getElementById("installHelp");
 
     function isStandalone(){
       return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
     }
-
     function showInstallButton(show){
       if(!btnInstall) return;
       btnInstall.style.display = show ? "" : "none";
     }
-
     function showInstallHelp(show){
       if(!installHelp) return;
       installHelp.style.display = show ? "" : "none";
@@ -911,24 +879,21 @@
         showInstallHelp(false);
         return;
       }
-
       if(tabName !== "destaque"){
         showInstallButton(false);
         showInstallHelp(false);
         return;
       }
-
       if(deferredPrompt){
         showInstallButton(true);
         showInstallHelp(false);
         return;
       }
-
       showInstallButton(false);
       showInstallHelp(true);
     }
 
-    // ===== Funcionalidades (tabs + listas + destaque + modais) =====
+    // ===== Funcionalidades =====
     const tabs = Array.from(document.querySelectorAll('.tab'));
     const panels = Array.from(document.querySelectorAll('.panel'));
     const headers = Array.from(document.querySelectorAll('.hd'));
@@ -1158,6 +1123,12 @@
     btnFecharModal.addEventListener("click", closeModal);
     backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
 
+    // ✅ helper: parse JSON response
+    async function readJsonSafe(resp){
+      const txt = await resp.text();
+      try { return JSON.parse(txt); } catch(e){ return { ok:false, error:"Resposta inválida do servidor.", raw: txt }; }
+    }
+
     btnSalvar.addEventListener("click", async ()=>{
       try{
         saveStatus.textContent = "Salvando…";
@@ -1170,7 +1141,10 @@
         form.set("password", password);
         form.set("html", html);
 
-        await fetch(API, { method:"POST", body: form, mode:"no-cors" });
+        // ✅ SEM no-cors
+        const resp = await fetch(API, { method:"POST", body: form });
+        const data = await readJsonSafe(resp);
+        if(!data.ok) throw new Error(data.error || "Falha ao salvar.");
 
         saveStatus.textContent = "✅ Salvo! Recarregando…";
         cache.destaqueHtml = "";
@@ -1178,7 +1152,7 @@
         saveStatus.textContent = "✅ Salvo com sucesso!";
         setTimeout(closeModal, 600);
       }catch(err){
-        saveStatus.textContent = "❌ Erro ao salvar. Tente novamente.";
+        saveStatus.textContent = "❌ Erro ao salvar. " + (err?.message || "Tente novamente.");
         console.error(err);
       }
     });
@@ -1292,15 +1266,19 @@
         form.set("password", password);
         form.set("section", currentSection);
         form.set("items", JSON.stringify(items));
+        form.set("turma", getTurma()); // ✅ MUITO IMPORTANTE (merge por turma no backend)
 
-        await fetch(API, { method:"POST", body: form, mode:"no-cors" });
+        // ✅ SEM no-cors e validando resposta
+        const resp = await fetch(API, { method:"POST", body: form });
+        const data = await readJsonSafe(resp);
+        if(!data.ok) throw new Error(data.error || "Falha ao salvar lista.");
 
         listStatus.textContent = "✅ Salvo! Recarregando…";
         await loadAll();
         listStatus.textContent = "✅ Alterações aplicadas!";
         setTimeout(closeListModal, 600);
       }catch(err){
-        listStatus.textContent = "❌ Erro ao salvar. Tente novamente.";
+        listStatus.textContent = "❌ Erro ao salvar. " + (err?.message || "Tente novamente.");
         console.error(err);
       }
     });
@@ -1321,7 +1299,6 @@
 
     refreshAvisosDot();
 
-    // ===== PWA =====
     if ("serviceWorker" in navigator){
       navigator.serviceWorker.register("./sw.js").catch(console.error);
     }
