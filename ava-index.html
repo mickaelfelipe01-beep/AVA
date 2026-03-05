@@ -1265,8 +1265,8 @@
         form.set("action","saveList");
         form.set("password", password);
         form.set("section", currentSection);
+        form.set("turma", getTurma());
         form.set("items", JSON.stringify(items));
-        form.set("turma", getTurma()); // ✅ MUITO IMPORTANTE (merge por turma no backend)
 
         // ✅ SEM no-cors e validando resposta
         const resp = await fetch(API, { method:"POST", body: form });
