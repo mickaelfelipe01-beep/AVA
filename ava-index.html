@@ -52,24 +52,40 @@
     *{box-sizing:border-box}
     html,body{height:100%}
 
-    body{
-      margin:0;
-      font-family:var(--font);
-      color:var(--text);
-      background:
-        radial-gradient(900px 520px at 15% 0%, rgba(37,99,235,.10), transparent 55%),
-        radial-gradient(900px 520px at 95% 0%, rgba(34,197,94,.08), transparent 55%),
-        var(--bg);
-    }
-    html[data-theme="dark"] body{
-      background:
-        radial-gradient(900px 520px at 15% 0%, rgba(96,165,250,.16), transparent 55%),
-        radial-gradient(900px 520px at 95% 0%, rgba(34,197,94,.10), transparent 55%),
-        var(--bg);
-    }
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--text);
+  background: var(--bg);
+  position:relative;
+}
 
-    .wrap{max-width:1100px;margin:0 auto;padding:26px 16px 40px}
+/* gradiente apenas no rodapé */
+body::after{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:180px;
+  pointer-events:none;
+  z-index:0;
+  background: linear-gradient(
+    to top,
+    rgba(37,99,235,.14),
+    rgba(37,99,235,.06),
+    transparent
+  );
+}
 
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:26px 16px 40px;
+  position:relative;
+  z-index:1;
+}
+    
     header{
       display:flex;align-items:center;justify-content:space-between;gap:14px;
       padding:18px 18px;
@@ -590,6 +606,14 @@ html[data-theme="dark"] .item{
 .btn{
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+    html[data-theme="dark"] body::after{
+  background: linear-gradient(
+    to top,
+    rgba(96,165,250,.25),
+    rgba(96,165,250,.10),
+    transparent
+  );
 }
   </style>
 </head>
