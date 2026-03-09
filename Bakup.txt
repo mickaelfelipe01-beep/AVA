@@ -1,0 +1,1307 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2563eb">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Área do Aluno • Instituto ALFA</title>
+
+  <link rel="icon" type="image/png" href="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png">
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --line:#e7e9f2;
+      --text:#0f172a;
+      --muted:#475569;
+      --muted2:#64748b;
+
+      --brand:#2563eb;
+      --brandHover:#1d4ed8;
+
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+      --soft:#f1f5f9;
+
+      --shadow: 0 12px 30px rgba(2,6,23,.08);
+      --radius: 18px;
+      --radius2: 14px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    html[data-theme="dark"]{
+      --bg:#0b1220;
+      --card:#0f172a;
+      --line:rgba(255,255,255,.10);
+      --text:#e5e7eb;
+      --muted:rgba(229,231,235,.72);
+      --muted2:rgba(229,231,235,.60);
+
+      --brand:#60a5fa;
+      --brandHover:#3b82f6;
+
+      --soft:rgba(255,255,255,.06);
+      --shadow: 0 18px 50px rgba(0,0,0,.38);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(37,99,235,.10), transparent 55%),
+        radial-gradient(900px 520px at 95% 0%, rgba(34,197,94,.08), transparent 55%),
+        var(--bg);
+    }
+    html[data-theme="dark"] body{
+      background:
+        radial-gradient(900px 520px at 15% 0%, rgba(96,165,250,.16), transparent 55%),
+        radial-gradient(900px 520px at 95% 0%, rgba(34,197,94,.10), transparent 55%),
+        var(--bg);
+    }
+
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 16px 40px}
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:18px 18px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    html[data-theme="dark"] header{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+
+    .brand{display:flex;align-items:center;gap:14px;min-width:260px}
+    .logo{
+      width:56px;height:56px;border-radius:16px;
+      background:var(--soft);
+      border:1px solid var(--line);
+      display:grid;place-items:center;overflow:hidden;flex:0 0 auto;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover}
+
+    .title{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+    .title strong{
+      font-size:18px;letter-spacing:.2px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .title span{font-size:13px;color:var(--muted2)}
+
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:9px 12px;
+      border:1px solid var(--line);
+      background:var(--soft);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pill select{
+      border:0; outline:0; background:transparent;
+      font-weight:900; color:var(--text);
+      cursor:pointer;
+    }
+
+    .themeBtn{
+      border:0;
+      background:transparent;
+      color:var(--text);
+      font-weight:900;
+      cursor:pointer;
+      padding:0;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .themeIcon{font-size:14px; line-height:1}
+    .themeLabel{font-size:13px}
+
+    .search{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      min-width:320px;
+      box-shadow: 0 8px 20px rgba(2,6,23,.04);
+    }
+    html[data-theme="dark"] .search{background: rgba(0,0,0,.20)}
+    .search input{
+      width:100%;
+      border:0;outline:0;
+      background:transparent;
+      color:var(--text);
+      font-size:14px;
+    }
+    .search input::placeholder{color:#94a3b8}
+    html[data-theme="dark"] .search input::placeholder{color:rgba(229,231,235,.45)}
+
+    @media (max-width: 980px){
+      header{flex-direction:column;align-items:stretch}
+      .actions{justify-content:flex-start}
+      .search{min-width:0;width:100%}
+    }
+
+    @media (max-width: 600px){
+      .brand{min-width:0;}
+      .title strong{
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        font-size: 16px;
+        line-height: 1.2;
+      }
+      .title span{font-size:12px;}
+    }
+
+    .card{
+      margin-top:16px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.86);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    html[data-theme="dark"] .card{background: rgba(255,255,255,.04)}
+
+    .cardTop{
+      padding:14px 14px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.85));
+    }
+    html[data-theme="dark"] .cardTop{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+    }
+    .cardTop .hint{font-size:13px;color:var(--muted2);white-space:nowrap}
+    @media (max-width: 760px){
+      .cardTop{flex-direction:column;align-items:flex-start}
+      .cardTop .hint{white-space:normal}
+    }
+
+    .tabs{
+      display:inline-flex;
+      padding:6px;
+      background:var(--soft);
+      border:1px solid var(--line);
+      border-radius:999px;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+
+    .tab{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+
+      padding:10px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      user-select:none;
+      font-weight:900;
+      font-size:13px;
+      color:var(--muted);
+      border:1px solid transparent;
+      transition: background .15s ease, transform .08s ease, border-color .15s ease;
+      white-space:nowrap;
+      background:transparent;
+      text-align:center;
+    }
+    .tab:hover{transform: translateY(-1px)}
+    .tab.active{
+      background:#fff;
+      color:var(--text);
+      border-color: rgba(37,99,235,.22);
+      box-shadow: 0 10px 18px rgba(2,6,23,.06);
+    }
+    html[data-theme="dark"] .tab.active{
+      background: rgba(0,0,0,.25);
+      border-color: rgba(96,165,250,.28);
+      box-shadow: 0 10px 18px rgba(0,0,0,.25);
+    }
+
+    .hd{
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    html[data-theme="dark"] .hd{background: rgba(0,0,0,.18)}
+    .hd h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:var(--soft);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .tag.ok{border-color: rgba(34,197,94,.25); background: rgba(34,197,94,.10); color:#166534}
+    .tag.warn{border-color: rgba(245,158,11,.28); background: rgba(245,158,11,.12); color:#92400e}
+    html[data-theme="dark"] .tag.ok{color:#bff5cf}
+    html[data-theme="dark"] .tag.warn{color:#ffe2c8}
+
+    .panel{display:none;padding:16px 18px 18px}
+    .panel.active{display:block}
+
+    .list{display:flex;flex-direction:column;gap:12px}
+
+    .item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 14px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:var(--radius2);
+      box-shadow: 0 10px 18px rgba(2,6,23,.04);
+    }
+    html[data-theme="dark"] .item{
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 18px rgba(0,0,0,.22);
+    }
+    .item .left{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .item .name{
+      font-weight:900;
+      font-size:14px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 720px;
+    }
+    .item .meta{font-size:12.5px;color:var(--muted2);line-height:1.25}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--soft);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:900;
+      font-size:13px;
+      white-space:nowrap;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      flex:0 0 auto;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); background:#fff; border-color: rgba(37,99,235,.20)}
+    html[data-theme="dark"] .btn:hover{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(96,165,250,.22);
+    }
+    .btn.primary{
+      background: var(--brand);
+      border-color: rgba(37,99,235,.35);
+      color:#fff;
+      box-shadow: 0 16px 26px rgba(37,99,235,.22);
+    }
+    .btn.primary:hover{background:var(--brandHover)}
+    .btn.orange{
+      background: rgba(245,158,11,.12);
+      border-color: rgba(245,158,11,.28);
+      color:#92400e;
+    }
+    .btn.ghost{background: transparent}
+    html[data-theme="dark"] .btn.ghost{background: rgba(255,255,255,.03)}
+    .btn.danger{
+      background: rgba(239,68,68,.10);
+      border-color: rgba(239,68,68,.28);
+      color:#991b1b;
+    }
+    html[data-theme="dark"] .btn.danger{color:#fecaca}
+
+    .hd [data-manage].btn{
+      padding:8px 10px;
+      font-size:12px;
+      border-radius:10px;
+    }
+
+    .btn.install{
+      background: rgba(37,99,235,.10);
+      border-color: rgba(37,99,235,.28);
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn.install:hover{
+      background: rgba(37,99,235,.14);
+      border-color: rgba(37,99,235,.38);
+    }
+    .btn.install::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(400px 120px at 20% 50%, rgba(37,99,235,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    html[data-theme="dark"] .btn.install{
+      background: rgba(96,165,250,.10);
+      border-color: rgba(96,165,250,.28);
+    }
+    html[data-theme="dark"] .btn.install::after{
+      background: radial-gradient(400px 120px at 20% 50%, rgba(96,165,250,.20), transparent 60%);
+    }
+
+    .note{
+      margin-top:14px;
+      padding:12px 12px;
+      border-radius:var(--radius2);
+      border:1px dashed #cbd5e1;
+      background: #fff;
+      color:var(--muted);
+      font-size:12.5px;
+      line-height:1.35;
+    }
+    html[data-theme="dark"] .note{
+      background: rgba(0,0,0,.18);
+      border-color: rgba(255,255,255,.14);
+      color: var(--muted);
+    }
+
+    .article{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      padding:14px;
+      overflow-wrap:anywhere;
+      box-shadow: 0 10px 18px rgba(2,6,23,.04);
+    }
+    html[data-theme="dark"] .article{
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 18px rgba(0,0,0,.22);
+    }
+    .article img{max-width:100%; border-radius:12px}
+
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(2,6,23,.45);
+      display:none; align-items:center; justify-content:center;
+      padding:16px;
+      z-index:9999;
+    }
+    .modal-backdrop.show{display:flex}
+    .modal{
+      width:min(980px, 100%);
+      background:#fff;
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.12);
+      box-shadow: 0 30px 80px rgba(2,6,23,.25);
+      overflow:hidden;
+    }
+    .modal-hd{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(15,23,42,.10);
+      background: rgba(15,23,42,.02);
+    }
+    .modal-hd strong{font-size:14px}
+    .modal-bd{padding:14px 16px}
+
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .row input, .row select{
+      padding:10px 12px;
+      border:1px solid rgba(15,23,42,.14);
+      border-radius:12px;
+      outline:0;
+      width:260px;
+      background:#fff;
+    }
+
+    #editor{height:320px; background:#fff}
+    .status{font-size:12px; color: var(--muted2)}
+
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid rgba(15,23,42,.12);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .table th,.table td{
+      border-bottom:1px solid rgba(15,23,42,.10);
+      padding:10px;
+      font-size:12.5px;
+      vertical-align:top;
+    }
+    .table th{
+      background: rgba(15,23,42,.02);
+      text-align:left;
+      font-size:12px;
+      color: rgba(15,23,42,.7);
+    }
+    .table td input, .table td select{
+      width:100%;
+      padding:8px 10px;
+      border:1px solid rgba(15,23,42,.14);
+      border-radius:10px;
+      outline:0;
+    }
+    .table tr:last-child td{border-bottom:0}
+
+    .small{font-size:12px;color:var(--muted2)}
+
+    footer{
+      margin-top:16px;
+      padding:14px 16px;
+      text-align:center;
+      color:#64748b;
+      font-size:12px;
+    }
+    .muted{color:var(--muted2)}
+
+    @media (max-width: 520px){
+      .cardTop{
+        justify-content: center;
+        gap: 10px;
+        align-items: stretch;
+      }
+      .cardTop .hint{
+        width:100%;
+        text-align:center;
+        white-space:normal;
+      }
+
+      .tabs{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        width:100%;
+        padding:10px;
+        border-radius:22px;
+        justify-items:stretch;
+        align-items:stretch;
+      }
+
+      .tab{
+        width:100%;
+        padding:12px 10px;
+        white-space:nowrap;
+      }
+
+      .tab[data-tab="destaque"]{
+        grid-column: 1 / -1;
+        grid-row: 3;
+      }
+
+      .tab[data-tab="atividades"]{ grid-column:1; grid-row:1; }
+      .tab[data-tab="pdfs"]{       grid-column:2; grid-row:1; }
+      .tab[data-tab="proximas"]{   grid-column:1; grid-row:2; }
+      .tab[data-tab="avisos"]{     grid-column:2; grid-row:2; }
+
+      .tab:hover{ transform:none; }
+    }
+
+    @media (max-width: 760px){
+      .tab:hover{ transform:none; }
+    }
+
+    #panel-destaque .article{
+      border-color: rgba(37,99,235,.25);
+      box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08);
+    }
+    #panel-destaque .tag{
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.12);
+    }
+    @keyframes alfaPulse{
+      0%,100%{ box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08); }
+      50%{    box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 6px rgba(37,99,235,.12); }
+    }
+    #panel-destaque .article{ animation: alfaPulse 3.2s ease-in-out infinite; }
+
+    .dot{
+      display:inline-block;
+      width:8px;height:8px;
+      border-radius:999px;
+      margin-left:6px;
+      background:#ef4444;
+      box-shadow:0 0 0 3px rgba(239,68,68,.18);
+      vertical-align:middle;
+    }
+    .dot.hide{ display:none; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="https://mickaelfelipe01-beep.github.io/Atividades/aulas-informatica-alpha/imagens/Design%20sem%20nome%20(8).png" alt="Instituto ALFA">
+        </div>
+        <div class="title">
+          <strong>Área do Aluno • Instituto ALFA</strong>
+          <span>Materiais e atividades do curso em um só lugar</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <div class="pill" title="Selecionar Turma">
+          👥 Turma:
+          <select id="turmaSelect" aria-label="Selecionar turma">
+            <option value="A">A</option>
+            <option value="B">B</option>
+          </select>
+        </div>
+
+        <div class="pill" title="Tema claro/escuro">
+          <button class="themeBtn" id="themeToggle" type="button" aria-label="Alternar tema">
+            <span class="themeIcon" aria-hidden="true">☀️</span>
+            <span class="themeLabel">Claro</span>
+          </button>
+        </div>
+
+        <div class="pill">📌 Salve este link nos favoritos</div>
+
+        <div class="search" title="Pesquisar na aba atual">
+          🔎 <input id="q" type="search" placeholder="Pesquisar (ex.: Aula 01, Windows, Internet)..." />
+        </div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="cardTop">
+        <div class="tabs" role="tablist" aria-label="Navegação">
+          <div class="tab" data-tab="atividades" role="tab" aria-selected="false">📝 Atividades</div>
+          <div class="tab" data-tab="pdfs" role="tab" aria-selected="false">📚 PDFs</div>
+          <div class="tab" data-tab="proximas" role="tab" aria-selected="false">📘 Próximas aulas</div>
+          <div class="tab active" data-tab="destaque" role="tab" aria-selected="true">⭐ Destaque</div>
+          <div class="tab" data-tab="avisos" role="tab" aria-selected="false">
+            📢 Avisos <span class="dot" id="avisosDot" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="hint">🔎 A busca filtra apenas a aba atual</div>
+      </div>
+
+      <div class="hd" data-hd="atividades" style="display:none">
+        <h2>📝 Atividades da Semana</h2>
+        <div class="row" style="justify-content:flex-end">
+          <button class="btn ghost" type="button" data-manage="atividades">⚙️ Gerenciar</button>
+          <span class="tag ok" id="tagTurmaAtv">Turma</span>
+        </div>
+      </div>
+
+      <div class="hd" data-hd="pdfs" style="display:none">
+        <h2>📚 PDFs das Aulas (Passadas e Materiais)</h2>
+        <div class="row" style="justify-content:flex-end">
+          <button class="btn ghost" type="button" data-manage="pdfs">⚙️ Gerenciar</button>
+          <span class="tag" id="tagTurmaPdf">Turma</span>
+        </div>
+      </div>
+
+      <div class="hd" data-hd="proximas" style="display:none">
+        <h2>📘 Próximas aulas</h2>
+        <div class="row" style="justify-content:flex-end">
+          <button class="btn ghost" type="button" data-manage="proximas">⚙️ Gerenciar</button>
+          <span class="tag warn" id="tagTurmaProx">Turma</span>
+        </div>
+      </div>
+
+      <div class="hd" data-hd="destaque">
+        <h2>⭐ Destaque da Semana</h2>
+        <span class="tag">Artigo</span>
+      </div>
+
+      <div class="hd" data-hd="avisos" style="display:none">
+        <h2>📢 Avisos</h2>
+        <span class="tag">Recados</span>
+      </div>
+
+      <div class="panel" id="panel-atividades" data-panel="atividades">
+        <div class="list" id="list-atividades"></div>
+        <div class="note">
+          ✅ Se alguma atividade não abrir, me avise.<br>
+          📌 Faça com calma e revise antes de enviar.
+        </div>
+      </div>
+
+      <div class="panel" id="panel-pdfs" data-panel="pdfs">
+        <div class="list" id="list-pdfs"></div>
+        <div class="note">
+          🔎 Use a busca no topo (ex.: “Aula 01”, “Windows”, “Internet”).<br>
+          ✅ PDFs ficam no Drive — link de visualização.
+        </div>
+      </div>
+
+      <div class="panel" id="panel-proximas" data-panel="proximas">
+        <div class="list" id="list-proximas"></div>
+        <div class="note">
+          📌 Quando o material estiver pronto, troque “Em breve” por “Abrir PDF”.
+        </div>
+      </div>
+
+      <div class="panel active" id="panel-destaque" data-panel="destaque">
+        <div class="row" style="justify-content:space-between">
+          <div class="status" id="destaqueStatus">Carregando o destaque…</div>
+
+          <div class="row" style="justify-content:flex-end">
+            <button class="btn install" id="btnInstall" type="button" style="display:none" title="Instalar o app no celular">
+              ⬇️ Instalar App
+            </button>
+
+            <button class="btn primary" id="btnEditarDestaque" type="button" title="Editar (professor)">
+              ✏️ Editar
+            </button>
+          </div>
+        </div>
+
+        <div class="note" id="installHelp" style="display:none;margin-top:10px">
+          📌 Para instalar: abra este link no <b>Chrome</b> (Android) ou <b>Safari</b> (iPhone) e use “<b>Adicionar à Tela de Início</b>”.
+        </div>
+
+        <div style="height:10px"></div>
+
+        <div class="article" id="destaqueView">
+          <h2>Destaque da Semana</h2>
+          <p>Carregando…</p>
+        </div>
+
+        <div class="note">
+          👨‍🏫 Professor: clique em <b>Editar</b>, digite a senha e atualize o artigo sem mexer no código.<br>
+          🖼️ Imagens: você pode colar prints ou inserir imagens por link.
+        </div>
+      </div>
+
+      <div class="panel" id="panel-avisos" data-panel="avisos">
+        <div class="note" style="margin-top:0">
+          📌 <strong>Recado da semana:</strong><br>
+          - Atividade disponível até <strong>sexta-feira</strong>.<br>
+          - Dúvidas: mande no grupo.<br><br>
+          ✅ Antes de dizer “perdi o link”, confira esta página 😄
+        </div>
+      </div>
+
+    </section>
+
+    <footer>
+      Instituto ALFA • Área do Aluno — <span class="muted">Formando vencedores!</span>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Editor do Destaque">
+      <div class="modal-hd">
+        <strong>Editar Destaque da Semana</strong>
+        <button class="btn danger" id="btnFecharModal" type="button">Fechar</button>
+      </div>
+      <div class="modal-bd">
+        <div class="row">
+          <input id="pass" type="password" placeholder="Senha do professor" />
+          <button class="btn primary" id="btnSalvarDestaque" type="button">💾 Salvar</button>
+          <span class="status" id="saveStatus">—</span>
+        </div>
+        <div style="height:12px"></div>
+        <div id="editor"></div>
+        <div class="note">
+          ⚠️ Evite colar imagens gigantes (pode ficar pesado). Se preferir, use imagem por link.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="listBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Gerenciar itens">
+      <div class="modal-hd">
+        <strong id="listTitle">Gerenciar</strong>
+        <button class="btn danger" id="btnFecharList" type="button">Fechar</button>
+      </div>
+      <div class="modal-bd">
+        <div class="row">
+          <input id="listPass" type="password" placeholder="Senha do professor" />
+          <button class="btn primary" id="btnSalvarList" type="button">💾 Salvar alterações</button>
+          <button class="btn ghost" id="btnAddRow" type="button">➕ Adicionar item</button>
+          <span class="status" id="listStatus">—</span>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="small">
+          Itens são separados por <b>Turma</b>. O aluno vê só a turma selecionada no topo.
+        </div>
+        <div style="height:10px"></div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th style="width:18%">Título</th>
+              <th style="width:18%">Meta</th>
+              <th style="width:18%">Link</th>
+              <th style="width:12%">Tags</th>
+              <th style="width:10%">Botão</th>
+              <th style="width:10%">Estilo</th>
+              <th style="width:8%">Turma</th>
+              <th style="width:6%">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="listTbody"></tbody>
+        </table>
+
+        <div class="note">
+          ✅ Após salvar, o site recarrega a lista automaticamente.<br>
+          ⚠️ Se o link ficar vazio, o botão vira “Em breve”.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbyGQj5u2WPEwtQaBAH0lnFkPMxybqO1krxTESpyqHhY1H-Bt3jUXxL2YbKOJsPIbR-fwg/exec";
+
+    // ===== Avisos: indicador "novo" por versão =====
+    const AVISOS_VERSION = "2026-03-03-01";
+    const avisosDot = document.getElementById("avisosDot");
+
+    function refreshAvisosDot(){
+      const seen = localStorage.getItem("ALFA_AVISOS_SEEN") || "";
+      const isNew = (seen !== AVISOS_VERSION);
+      if(avisosDot) avisosDot.classList.toggle("hide", !isNew);
+    }
+    function markAvisosSeen(){
+      localStorage.setItem("ALFA_AVISOS_SEEN", AVISOS_VERSION);
+      refreshAvisosDot();
+    }
+
+    // ===== Tema =====
+    const themeToggle = document.getElementById("themeToggle");
+    function applyTheme(t){
+      const theme = (t === "dark") ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("ALFA_THEME", theme);
+
+      const icon = themeToggle?.querySelector(".themeIcon");
+      const label = themeToggle?.querySelector(".themeLabel");
+      if(icon) icon.textContent = (theme === "dark") ? "🌙" : "☀️";
+      if(label) label.textContent = (theme === "dark") ? "Escuro" : "Claro";
+    }
+    function initTheme(){
+      const saved = localStorage.getItem("ALFA_THEME");
+      applyTheme(saved || "light");
+    }
+    if (themeToggle){
+      themeToggle.addEventListener("click", ()=>{
+        const cur = document.documentElement.getAttribute("data-theme") || "light";
+        applyTheme(cur === "dark" ? "light" : "dark");
+      });
+    }
+    initTheme();
+
+    // ===== Botão INSTALAR =====
+    let deferredPrompt = null;
+    const btnInstall = document.getElementById("btnInstall");
+    const installHelp = document.getElementById("installHelp");
+
+    function isStandalone(){
+      return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+    }
+    function showInstallButton(show){
+      if(!btnInstall) return;
+      btnInstall.style.display = show ? "" : "none";
+    }
+    function showInstallHelp(show){
+      if(!installHelp) return;
+      installHelp.style.display = show ? "" : "none";
+    }
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const isDestaque = document.querySelector('.tab.active')?.dataset?.tab === "destaque";
+      if(isDestaque && !isStandalone()){
+        showInstallButton(true);
+        showInstallHelp(false);
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      showInstallButton(false);
+      showInstallHelp(false);
+    });
+
+    if(btnInstall){
+      btnInstall.addEventListener("click", async () => {
+        try{
+          if(!deferredPrompt){
+            showInstallHelp(true);
+            return;
+          }
+          await deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          showInstallButton(false);
+        }catch(err){
+          console.error(err);
+          showInstallHelp(true);
+        }
+      });
+    }
+
+    function updateInstallUIByTab(tabName){
+      if(isStandalone()){
+        showInstallButton(false);
+        showInstallHelp(false);
+        return;
+      }
+      if(tabName !== "destaque"){
+        showInstallButton(false);
+        showInstallHelp(false);
+        return;
+      }
+      if(deferredPrompt){
+        showInstallButton(true);
+        showInstallHelp(false);
+        return;
+      }
+      showInstallButton(false);
+      showInstallHelp(true);
+    }
+
+    // ===== Funcionalidades =====
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    const headers = Array.from(document.querySelectorAll('.hd'));
+    const q = document.getElementById('q');
+
+    const turmaSelect = document.getElementById("turmaSelect");
+    const tagTurmaAtv = document.getElementById("tagTurmaAtv");
+    const tagTurmaPdf = document.getElementById("tagTurmaPdf");
+    const tagTurmaProx = document.getElementById("tagTurmaProx");
+
+    const listEls = {
+      atividades: document.getElementById("list-atividades"),
+      pdfs: document.getElementById("list-pdfs"),
+      proximas: document.getElementById("list-proximas"),
+    };
+
+    let cache = { atividades:[], pdfs:[], proximas:[], destaqueHtml:"" };
+
+    function norm(s){
+      return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+    }
+
+    function getUrlParam(name){
+      const u = new URL(location.href);
+      return (u.searchParams.get(name) || "").trim();
+    }
+
+    function setUrlParam(name, value){
+      const u = new URL(location.href);
+      u.searchParams.set(name, value);
+      history.replaceState(null, "", u.toString());
+    }
+
+    function getTurma(){
+      const fromUrl = getUrlParam("turma");
+      const fromLS = localStorage.getItem("ALFA_TURMA") || "";
+      const t = (fromUrl || fromLS || "A").toUpperCase();
+      return (t === "B") ? "B" : "A";
+    }
+
+    function setTurma(t){
+      const tt = (t || "A").toUpperCase() === "B" ? "B" : "A";
+      localStorage.setItem("ALFA_TURMA", tt);
+      setUrlParam("turma", tt);
+      turmaSelect.value = tt;
+
+      tagTurmaAtv.textContent  = "Turma " + tt;
+      tagTurmaPdf.textContent  = "Turma " + tt;
+      tagTurmaProx.textContent = "Turma " + tt;
+
+      loadAll().catch(console.error);
+    }
+
+    function setActive(tabName){
+      tabs.forEach(t=>{
+        const active = t.dataset.tab === tabName;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      panels.forEach(p=> p.classList.toggle('active', p.dataset.panel === tabName));
+      headers.forEach(h=> h.style.display = (h.dataset.hd === tabName) ? '' : 'none');
+
+      q.value = "";
+      applyFilter();
+
+      if (tabName === "destaque") loadDestaque();
+      if (tabName === "avisos") markAvisosSeen();
+
+      updateInstallUIByTab(tabName);
+    }
+
+    function applyFilter(){
+      const term = norm(q.value);
+      const activePanel = panels.find(p => p.classList.contains('active'));
+      if(!activePanel) return;
+
+      const items = Array.from(activePanel.querySelectorAll('.item'));
+      items.forEach(el=>{
+        const tags = norm(el.getAttribute('data-tags') || "");
+        const text = norm(el.innerText || "");
+        const ok = !term || tags.includes(term) || text.includes(term);
+        el.style.display = ok ? "" : "none";
+      });
+    }
+
+    tabs.forEach(t=> t.addEventListener('click', ()=> setActive(t.dataset.tab)));
+    q.addEventListener('input', applyFilter);
+
+    function escapeHtml(s){
+      return String(s||"")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function itemMatchesTurma(it, turma){
+      const v = String(it?.turma || "").trim().toUpperCase();
+      if (!v) return false;
+      if (v === "GERAL" || v === "TODAS") return true;
+      return v === turma;
+    }
+
+    function renderList(section, items){
+      const host = listEls[section];
+      host.innerHTML = "";
+
+      const turma = getTurma();
+      const filtered = (items || []).filter(it => it && it.enabled !== false && itemMatchesTurma(it, turma));
+
+      if(!filtered.length){
+        host.innerHTML = `
+          <div class="note" style="margin-top:0">
+            ⚠️ Nenhum item cadastrado para a <b>Turma ${escapeHtml(turma)}</b>.
+            Clique em <b>⚙️ Gerenciar</b> para adicionar.
+          </div>`;
+        return;
+      }
+
+      filtered.forEach(it=>{
+        const title = escapeHtml(it.title);
+        const meta  = escapeHtml(it.meta);
+        const link  = String(it.link||"").trim();
+        const tags  = escapeHtml(it.tags || "");
+        const btnText = escapeHtml(it.btn || (link ? "Abrir ↗" : "Em breve"));
+        const style   = (it.style || "primary").trim();
+
+        const isDisabled = !link || link === "#";
+        const btnHtml = isDisabled
+          ? `<a class="btn ghost" href="#" onclick="return false;">${btnText || "Em breve"}</a>`
+          : `<a class="btn ${escapeHtml(style)}" target="_blank" rel="noopener" href="${escapeHtml(link)}">${btnText}</a>`;
+
+        host.insertAdjacentHTML("beforeend", `
+          <div class="item" data-tags="${tags} ${title} ${meta}">
+            <div class="left">
+              <div class="name">${title}</div>
+              <div class="meta">${meta}</div>
+            </div>
+            ${btnHtml}
+          </div>
+        `);
+      });
+
+      applyFilter();
+    }
+
+    async function loadAll(){
+      const turma = getTurma();
+      const url = API + "?action=getAll&turma=" + encodeURIComponent(turma) + "&ts=" + Date.now();
+
+      const res = await fetch(url, { method:"GET" });
+      const data = await res.json();
+      if(!data.ok) throw new Error(data.error || "Falha ao carregar.");
+
+      cache = {
+        atividades: data.data.atividades || [],
+        pdfs: data.data.pdfs || [],
+        proximas: data.data.proximas || [],
+        destaqueHtml: data.data.destaqueHtml || ""
+      };
+
+      renderList("atividades", cache.atividades);
+      renderList("pdfs", cache.pdfs);
+      renderList("proximas", cache.proximas);
+
+      if(cache.destaqueHtml){
+        lastLoadedHtml = cache.destaqueHtml;
+        destaqueView.innerHTML = lastLoadedHtml || "<h2>Destaque da Semana</h2><p>Nenhum conteúdo ainda.</p>";
+      }
+    }
+
+    // -------- Destaque --------
+    const destaqueView = document.getElementById("destaqueView");
+    const destaqueStatus = document.getElementById("destaqueStatus");
+    const btnEditar = document.getElementById("btnEditarDestaque");
+
+    const backdrop = document.getElementById("modalBackdrop");
+    const btnFecharModal = document.getElementById("btnFecharModal");
+    const btnSalvar = document.getElementById("btnSalvarDestaque");
+    const pass = document.getElementById("pass");
+    const saveStatus = document.getElementById("saveStatus");
+
+    const quill = new Quill('#editor', {
+      theme: 'snow',
+      modules: { toolbar: [[{ header: [1, 2, 3, false] }], ['bold','italic','underline','strike'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'align': [] }], ['link','image'], ['clean']] }
+    });
+
+    let lastLoadedHtml = "";
+
+    async function loadDestaque(){
+      try{
+        destaqueStatus.textContent = "Carregando o destaque…";
+        if (cache.destaqueHtml) {
+          lastLoadedHtml = cache.destaqueHtml;
+          destaqueView.innerHTML = lastLoadedHtml || "<h2>Destaque da Semana</h2><p>Nenhum conteúdo ainda.</p>";
+          destaqueStatus.textContent = "✅ Destaque carregado.";
+          return;
+        }
+        const url = API + "?action=get&ts=" + Date.now();
+        const res = await fetch(url, { method: "GET" });
+        const data = await res.json();
+        if(!data.ok) throw new Error(data.error || "Falha ao carregar.");
+        lastLoadedHtml = data.html || "";
+        destaqueView.innerHTML = lastLoadedHtml || "<h2>Destaque da Semana</h2><p>Nenhum conteúdo ainda.</p>";
+        destaqueStatus.textContent = "✅ Destaque carregado.";
+      }catch(err){
+        destaqueStatus.textContent = "⚠️ Não foi possível carregar o destaque. Verifique a URL do Web App.";
+        console.error(err);
+      }
+    }
+
+    function openModal(){
+      quill.root.innerHTML = lastLoadedHtml || "<h2>Destaque da Semana</h2><p>Escreva aqui…</p>";
+      saveStatus.textContent = "—";
+      pass.value = "";
+      backdrop.classList.add("show");
+      backdrop.setAttribute("aria-hidden","false");
+      setTimeout(()=> pass.focus(), 50);
+    }
+    function closeModal(){
+      backdrop.classList.remove("show");
+      backdrop.setAttribute("aria-hidden","true");
+    }
+    btnEditar.addEventListener("click", openModal);
+    btnFecharModal.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
+
+    // ✅ helper: parse JSON response
+    async function readJsonSafe(resp){
+      const txt = await resp.text();
+      try { return JSON.parse(txt); } catch(e){ return { ok:false, error:"Resposta inválida do servidor.", raw: txt }; }
+    }
+
+    btnSalvar.addEventListener("click", async ()=>{
+      try{
+        saveStatus.textContent = "Salvando…";
+        const html = quill.root.innerHTML;
+        const password = (pass.value || "").trim();
+        if (!password) { saveStatus.textContent = "❌ Digite a senha."; return; }
+
+        const form = new URLSearchParams();
+        form.set("action", "save");
+        form.set("password", password);
+        form.set("html", html);
+
+        // ✅ SEM no-cors
+        const resp = await fetch(API, { method:"POST", body: form });
+        const data = await readJsonSafe(resp);
+        if(!data.ok) throw new Error(data.error || "Falha ao salvar.");
+
+        saveStatus.textContent = "✅ Salvo! Recarregando…";
+        cache.destaqueHtml = "";
+        await loadAll();
+        saveStatus.textContent = "✅ Salvo com sucesso!";
+        setTimeout(closeModal, 600);
+      }catch(err){
+        saveStatus.textContent = "❌ Erro ao salvar. " + (err?.message || "Tente novamente.");
+        console.error(err);
+      }
+    });
+
+    // -------- Gerenciar listas --------
+    const listBackdrop = document.getElementById("listBackdrop");
+    const btnFecharList = document.getElementById("btnFecharList");
+    const btnSalvarList = document.getElementById("btnSalvarList");
+    const btnAddRow = document.getElementById("btnAddRow");
+    const listPass = document.getElementById("listPass");
+    const listStatus = document.getElementById("listStatus");
+    const listTitle = document.getElementById("listTitle");
+    const listTbody = document.getElementById("listTbody");
+    let currentSection = "atividades";
+
+    function openListModal(section){
+      currentSection = section;
+      listTitle.textContent = "Gerenciar — " + (section === "pdfs" ? "PDFs" : section === "proximas" ? "Próximas aulas" : "Atividades");
+      listPass.value = "";
+      listStatus.textContent = "—";
+      renderEditorRows(cache[section] || []);
+      listBackdrop.classList.add("show");
+      listBackdrop.setAttribute("aria-hidden","false");
+      setTimeout(()=> listPass.focus(), 50);
+    }
+    function closeListModal(){
+      listBackdrop.classList.remove("show");
+      listBackdrop.setAttribute("aria-hidden","true");
+    }
+
+    function renderEditorRows(items){
+      const safe = Array.isArray(items) ? items : [];
+      listTbody.innerHTML = "";
+      safe.forEach(it=> addRowToEditor(it));
+      if(!safe.length) addRowToEditor({});
+    }
+
+    function addRowToEditor(it){
+      const row = document.createElement("tr");
+      const turma = (it.turma || getTurma() || "A").toUpperCase();
+      row.innerHTML = `
+        <td><input data-k="title" placeholder="Ex: Atividade — Aula 03" value="${escapeHtml(it.title||"")}"></td>
+        <td><input data-k="meta" placeholder="Ex: Prazo: sexta-feira" value="${escapeHtml(it.meta||"")}"></td>
+        <td><input data-k="link" placeholder="https://..." value="${escapeHtml(it.link||"")}"></td>
+        <td><input data-k="tags" placeholder="aula 03 windows..." value="${escapeHtml(it.tags||"")}"></td>
+        <td><input data-k="btn" placeholder="Abrir ↗ / Em breve" value="${escapeHtml(it.btn||"")}"></td>
+        <td>
+          <select data-k="style">
+            <option value="primary">primary</option>
+            <option value="orange">orange</option>
+            <option value="ghost">ghost</option>
+          </select>
+          <div class="small" style="margin-top:6px">
+            <label style="display:flex;gap:8px;align-items:center">
+              <input type="checkbox" data-k="enabled" ${it.enabled === false ? "" : "checked"} />
+              Ativo
+            </label>
+          </div>
+        </td>
+        <td>
+          <select data-k="turma">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="GERAL">GERAL</option>
+          </select>
+        </td>
+        <td><button class="btn danger" type="button" data-remove>Remover</button></td>
+      `;
+      row.querySelector('[data-k="style"]').value = (it.style || "primary");
+      row.querySelector('[data-k="turma"]').value = (turma === "B" ? "B" : turma === "GERAL" ? "GERAL" : "A");
+
+      row.querySelector("[data-remove]").addEventListener("click", ()=> row.remove());
+      listTbody.appendChild(row);
+    }
+
+    function readEditorItems(){
+      const rows = Array.from(listTbody.querySelectorAll("tr"));
+      return rows.map(tr=>{
+        const get = (k)=> tr.querySelector(`[data-k="${k}"]`);
+        return {
+          title: (get("title").value||"").trim(),
+          meta: (get("meta").value||"").trim(),
+          link: (get("link").value||"").trim(),
+          tags: (get("tags").value||"").trim(),
+          btn: (get("btn").value||"").trim(),
+          style: (get("style").value||"primary").trim(),
+          enabled: !!get("enabled").checked,
+          turma: (get("turma").value||"").trim()
+        };
+      }).filter(x => x.title);
+    }
+
+    document.querySelectorAll("[data-manage]").forEach(btn=>{
+      btn.addEventListener("click", ()=> openListModal(btn.getAttribute("data-manage")));
+    });
+
+    btnFecharList.addEventListener("click", closeListModal);
+    listBackdrop.addEventListener("click", (e)=>{ if(e.target === listBackdrop) closeListModal(); });
+    btnAddRow.addEventListener("click", ()=> addRowToEditor({}));
+
+    btnSalvarList.addEventListener("click", async ()=>{
+      try{
+        listStatus.textContent = "Salvando…";
+        const password = (listPass.value||"").trim();
+        if(!password){ listStatus.textContent = "❌ Digite a senha."; return; }
+
+        const items = readEditorItems();
+
+        const form = new URLSearchParams();
+        form.set("action","saveList");
+        form.set("password", password);
+        form.set("section", currentSection);
+        form.set("turma", getTurma());
+        form.set("items", JSON.stringify(items));
+
+        // ✅ SEM no-cors e validando resposta
+        const resp = await fetch(API, { method:"POST", body: form });
+        const data = await readJsonSafe(resp);
+        if(!data.ok) throw new Error(data.error || "Falha ao salvar lista.");
+
+        listStatus.textContent = "✅ Salvo! Recarregando…";
+        await loadAll();
+        listStatus.textContent = "✅ Alterações aplicadas!";
+        setTimeout(closeListModal, 600);
+      }catch(err){
+        listStatus.textContent = "❌ Erro ao salvar. " + (err?.message || "Tente novamente.");
+        console.error(err);
+      }
+    });
+
+    turmaSelect.value = getTurma();
+    setTurma(getTurma());
+    turmaSelect.addEventListener("change", ()=> setTurma(turmaSelect.value));
+
+    setActive("destaque");
+    applyFilter();
+
+    loadAll().catch(err=>{
+      console.error(err);
+      renderList("atividades", []);
+      renderList("pdfs", []);
+      renderList("proximas", []);
+    });
+
+    refreshAvisosDot();
+
+    if ("serviceWorker" in navigator){
+      navigator.serviceWorker.register("./sw.js").catch(console.error);
+    }
+  </script>
+</body>
+</html>
