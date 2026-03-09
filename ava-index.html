@@ -52,40 +52,48 @@
     *{box-sizing:border-box}
     html,body{height:100%}
 
-body{
-  margin:0;
-  font-family:var(--font);
-  color:var(--text);
-  background: var(--bg);
-  position:relative;
-}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background: var(--bg);
+      position:relative;
+    }
 
-/* gradiente apenas no rodapé */
-body::after{
-  content:"";
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:180px;
-  pointer-events:none;
-  z-index:0;
-  background: linear-gradient(
-    to top,
-    rgba(37,99,235,.14),
-    rgba(37,99,235,.06),
-    transparent
-  );
-}
+    body::after{
+      content:"";
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      height:180px;
+      pointer-events:none;
+      z-index:0;
+      background: linear-gradient(
+        to top,
+        rgba(37,99,235,.14),
+        rgba(37,99,235,.06),
+        transparent
+      );
+    }
 
-.wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:26px 16px 40px;
-  position:relative;
-  z-index:1;
-}
-    
+    html[data-theme="dark"] body::after{
+      background: linear-gradient(
+        to top,
+        rgba(96,165,250,.25),
+        rgba(96,165,250,.10),
+        transparent
+      );
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:26px 16px 40px;
+      position:relative;
+      z-index:1;
+    }
+
     header{
       display:flex;align-items:center;justify-content:space-between;gap:14px;
       padding:18px 18px;
@@ -227,7 +235,6 @@ body::after{
       align-items:center;
       justify-content:center;
       gap:8px;
-
       padding:10px 12px;
       border-radius:999px;
       cursor:pointer;
@@ -287,54 +294,131 @@ body::after{
     html[data-theme="dark"] .tag.ok{color:#bff5cf}
     html[data-theme="dark"] .tag.warn{color:#ffe2c8}
 
-.panel{
-  display:none;
-  padding:16px 18px 18px;
-  position:relative;
-  overflow:hidden;
-  background:transparent;
-}
-.panel.active{display:block}
+    .panel{
+      display:none;
+      padding:16px 18px 18px;
+      position:relative;
+      overflow:hidden;
+      background:transparent;
+    }
+    .panel.active{display:block}
+    .panel::before{content:none;}
 
-.panel::before{
-  content:none;
-}
-    
-.item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  padding:14px 14px;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:var(--radius2);
-  box-shadow: 0 6px 14px rgba(2,6,23,.04);
-  position:relative;
-  overflow:hidden;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-html[data-theme="dark"] .item{
-  background: rgba(0,0,0,.18);
-  box-shadow: 0 6px 14px rgba(0,0,0,.16);
-}
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      position:relative;
+      z-index:2;
+    }
 
-.item::before{
-  content:none;
-}
+    .item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 14px 14px 0;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:var(--radius2);
+      box-shadow: 0 6px 14px rgba(2,6,23,.04);
+      position:relative;
+      overflow:hidden;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+    html[data-theme="dark"] .item{
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 6px 14px rgba(0,0,0,.16);
+    }
+    .item::before{content:none;}
 
-    .item .left{display:flex;flex-direction:column;gap:6px;min-width:0}
+    .itemAccent{
+      align-self:stretch;
+      width:6px;
+      border-radius:0 10px 10px 0;
+      flex:0 0 6px;
+      background: rgba(37,99,235,.35);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .item.type-atividades .itemAccent{
+      background: linear-gradient(180deg, rgba(34,197,94,.95), rgba(22,163,74,.75));
+    }
+    .item.type-pdfs .itemAccent{
+      background: linear-gradient(180deg, rgba(37,99,235,.95), rgba(59,130,246,.78));
+    }
+    .item.type-proximas .itemAccent{
+      background: linear-gradient(180deg, rgba(245,158,11,.95), rgba(217,119,6,.78));
+    }
+
+    .itemMain{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      min-width:0;
+      flex:1 1 auto;
+      padding-left:14px;
+    }
+
+    .itemIcon{
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      font-size:18px;
+      flex:0 0 40px;
+      border:1px solid var(--line);
+      background: var(--soft);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
+    }
+    .item.type-atividades .itemIcon{
+      background: rgba(34,197,94,.10);
+      border-color: rgba(34,197,94,.22);
+    }
+    .item.type-pdfs .itemIcon{
+      background: rgba(37,99,235,.10);
+      border-color: rgba(37,99,235,.22);
+    }
+    .item.type-proximas .itemIcon{
+      background: rgba(245,158,11,.12);
+      border-color: rgba(245,158,11,.24);
+    }
+
+    .item .left{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+      flex:1 1 auto;
+      padding-top:1px;
+    }
+
     .item .name{
       font-weight:900;
-      font-size:14px;
+      font-size:15px;
+      letter-spacing:.1px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
       max-width: 720px;
+      line-height:1.25;
     }
-    .item .meta{font-size:12.5px;color:var(--muted2);line-height:1.25}
+
+    .item .meta{
+      font-size:12.5px;
+      color:var(--muted2);
+      line-height:1.35;
+    }
+
+    .itemActions{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      flex:0 0 auto;
+      padding-right:14px;
+    }
 
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -350,20 +434,23 @@ html[data-theme="dark"] .item{
       transition: transform .08s ease, background .15s ease, border-color .15s ease;
       flex:0 0 auto;
       cursor:pointer;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
     .btn:hover{transform: translateY(-1px); background:#fff; border-color: rgba(37,99,235,.20)}
     html[data-theme="dark"] .btn:hover{
       background: rgba(255,255,255,.06);
       border-color: rgba(96,165,250,.22);
     }
-.btn.primary{
-  background: var(--brand);
-  border-color: rgba(37,99,235,.35);
-  color:#fff;
-  box-shadow: 0 4px 10px rgba(37,99,235,.10);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-}
+
+    .btn.primary{
+      background: var(--brand);
+      border-color: rgba(37,99,235,.35);
+      color:#fff;
+      box-shadow: 0 4px 10px rgba(37,99,235,.10);
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
     .btn.primary:hover{background:var(--brandHover)}
     .btn.orange{
       background: rgba(245,158,11,.12);
@@ -520,6 +607,32 @@ html[data-theme="dark"] .item{
     }
     .muted{color:var(--muted2)}
 
+    @media (max-width: 760px){
+      .item{
+        align-items:flex-start;
+      }
+      .itemActions{
+        padding-right:14px;
+        padding-left:14px;
+        width:100%;
+        justify-content:flex-start;
+      }
+      .item{
+        flex-direction:column;
+        gap:12px;
+        padding:14px 14px 14px 0;
+      }
+      .itemMain{
+        width:100%;
+      }
+      .item .name{
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
+      }
+      .tab:hover{ transform:none; }
+    }
+
     @media (max-width: 520px){
       .cardTop{
         justify-content: center;
@@ -562,10 +675,6 @@ html[data-theme="dark"] .item{
       .tab:hover{ transform:none; }
     }
 
-    @media (max-width: 760px){
-      .tab:hover{ transform:none; }
-    }
-
     #panel-destaque .article{
       border-color: rgba(37,99,235,.25);
       box-shadow: 0 10px 18px rgba(2,6,23,.04), 0 0 0 3px rgba(37,99,235,.08);
@@ -591,30 +700,14 @@ html[data-theme="dark"] .item{
     }
     .dot.hide{ display:none; }
 
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  position:relative;
-  z-index:2;
-}
-
-.card,
-.panel,
-.list,
-.item,
-.btn{
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-    html[data-theme="dark"] body::after{
-  background: linear-gradient(
-    to top,
-    rgba(96,165,250,.25),
-    rgba(96,165,250,.10),
-    transparent
-  );
-}
+    .card,
+    .panel,
+    .list,
+    .item,
+    .btn{
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
   </style>
 </head>
 
@@ -844,7 +937,6 @@ html[data-theme="dark"] .item{
   <script>
     const API = "https://script.google.com/macros/s/AKfycbyGQj5u2WPEwtQaBAH0lnFkPMxybqO1krxTESpyqHhY1H-Bt3jUXxL2YbKOJsPIbR-fwg/exec";
 
-    // ===== Avisos: indicador "novo" por versão =====
     const AVISOS_VERSION = "2026-03-03-01";
     const avisosDot = document.getElementById("avisosDot");
 
@@ -858,7 +950,6 @@ html[data-theme="dark"] .item{
       refreshAvisosDot();
     }
 
-    // ===== Tema =====
     const themeToggle = document.getElementById("themeToggle");
     function applyTheme(t){
       const theme = (t === "dark") ? "dark" : "light";
@@ -882,7 +973,6 @@ html[data-theme="dark"] .item{
     }
     initTheme();
 
-    // ===== Botão INSTALAR =====
     let deferredPrompt = null;
     const btnInstall = document.getElementById("btnInstall");
     const installHelp = document.getElementById("installHelp");
@@ -954,7 +1044,6 @@ html[data-theme="dark"] .item{
       showInstallHelp(true);
     }
 
-    // ===== Funcionalidades =====
     const tabs = Array.from(document.querySelectorAll('.tab'));
     const panels = Array.from(document.querySelectorAll('.panel'));
     const headers = Array.from(document.querySelectorAll('.hd'));
@@ -1060,6 +1149,13 @@ html[data-theme="dark"] .item{
       return v === turma;
     }
 
+    function getSectionIcon(section){
+      if(section === "atividades") return "📝";
+      if(section === "pdfs") return "📄";
+      if(section === "proximas") return "📘";
+      return "📌";
+    }
+
     function renderList(section, items){
       const host = listEls[section];
       host.innerHTML = "";
@@ -1083,6 +1179,7 @@ html[data-theme="dark"] .item{
         const tags  = escapeHtml(it.tags || "");
         const btnText = escapeHtml(it.btn || (link ? "Abrir ↗" : "Em breve"));
         const style   = (it.style || "primary").trim();
+        const icon    = getSectionIcon(section);
 
         const isDisabled = !link || link === "#";
         const btnHtml = isDisabled
@@ -1090,12 +1187,21 @@ html[data-theme="dark"] .item{
           : `<a class="btn ${escapeHtml(style)}" target="_blank" rel="noopener" href="${escapeHtml(link)}">${btnText}</a>`;
 
         host.insertAdjacentHTML("beforeend", `
-          <div class="item" data-tags="${tags} ${title} ${meta}">
-            <div class="left">
-              <div class="name">${title}</div>
-              <div class="meta">${meta}</div>
+          <div class="item type-${section}" data-tags="${tags} ${title} ${meta}">
+            <div class="itemAccent" aria-hidden="true"></div>
+
+            <div class="itemMain">
+              <div class="itemIcon" aria-hidden="true">${icon}</div>
+
+              <div class="left">
+                <div class="name">${title}</div>
+                <div class="meta">${meta}</div>
+              </div>
             </div>
-            ${btnHtml}
+
+            <div class="itemActions">
+              ${btnHtml}
+            </div>
           </div>
         `);
       });
@@ -1128,7 +1234,6 @@ html[data-theme="dark"] .item{
       }
     }
 
-    // -------- Destaque --------
     const destaqueView = document.getElementById("destaqueView");
     const destaqueStatus = document.getElementById("destaqueStatus");
     const btnEditar = document.getElementById("btnEditarDestaque");
@@ -1184,7 +1289,6 @@ html[data-theme="dark"] .item{
     btnFecharModal.addEventListener("click", closeModal);
     backdrop.addEventListener("click", (e)=>{ if(e.target === backdrop) closeModal(); });
 
-    // ✅ helper: parse JSON response
     async function readJsonSafe(resp){
       const txt = await resp.text();
       try { return JSON.parse(txt); } catch(e){ return { ok:false, error:"Resposta inválida do servidor.", raw: txt }; }
@@ -1202,7 +1306,6 @@ html[data-theme="dark"] .item{
         form.set("password", password);
         form.set("html", html);
 
-        // ✅ SEM no-cors
         const resp = await fetch(API, { method:"POST", body: form });
         const data = await readJsonSafe(resp);
         if(!data.ok) throw new Error(data.error || "Falha ao salvar.");
@@ -1218,7 +1321,6 @@ html[data-theme="dark"] .item{
       }
     });
 
-    // -------- Gerenciar listas --------
     const listBackdrop = document.getElementById("listBackdrop");
     const btnFecharList = document.getElementById("btnFecharList");
     const btnSalvarList = document.getElementById("btnSalvarList");
@@ -1329,7 +1431,6 @@ html[data-theme="dark"] .item{
         form.set("turma", getTurma());
         form.set("items", JSON.stringify(items));
 
-        // ✅ SEM no-cors e validando resposta
         const resp = await fetch(API, { method:"POST", body: form });
         const data = await readJsonSafe(resp);
         if(!data.ok) throw new Error(data.error || "Falha ao salvar lista.");
